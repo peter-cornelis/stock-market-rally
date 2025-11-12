@@ -11,4 +11,9 @@ class Exchange extends Model
     {
         return $this->belongsToMany(Company::class, 'exchange_company');
     }
+
+    public function equities()
+    {
+        return $this->hasMany(Equity::class);
+    }
 }

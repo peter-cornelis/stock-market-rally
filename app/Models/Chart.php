@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class FinancialRatio extends Model
+class Chart extends Model
 {
     public function equity(): BelongsTo
     {

@@ -13,7 +13,7 @@ class Company extends Model
         return $this->belongsToMany(Exchange::class, 'exchange_company');
     }
 
-    public function stocks(): HasMany
+    public function equities(): HasMany
     {
         return $this->hasMany(Equity::class);
     }
