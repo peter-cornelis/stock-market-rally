@@ -8,11 +8,6 @@
             @foreach ($equities as $equity)
                 <x-equity-card :$equity/>
             @endforeach
-            <li>
-                <a href="">
-
-                </a>
-            </li>
         </ul>
     </section>
 </x-layout>
