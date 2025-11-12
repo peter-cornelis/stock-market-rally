@@ -37,4 +37,24 @@ class Equity extends Model
     {
         return $this->hasMany(Chart::class);
     }
+
+    public function getCurrentPriceAttribute(): ?float
+    {
+        return $this->charts()->latest('date')->value('price');
+    }
+
+    public function getDailyChangeAttribute(): float
+    {
+        $latest = $this->charts()->latest('date')->limit(2)->get();
+        
+        return round($latest[0]->price - $latest[1]->price, 2);
+    }
+
+    public function getChangePercentageAttribute(): float
+    {
+        $price = $this->current_price;
+        $change = $this->daily_change;
+        
+        return round(($change / $price) * 100, 2);
+    }
 }
