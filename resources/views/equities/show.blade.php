@@ -9,10 +9,10 @@
             <canvas id="myChart" height="100" data-chart-data="{{ json_encode($equity->charts) }}" data-symbol="{{ $equity->symbol }}"></canvas>
             <ul class="grid grid-cols-[1fr_1fr] gap-6">
                 <li class="text-center">
-                    <a href="" class="inline-block w-2xs text-sm text-center bg-blueFin hover:bg-blueFin/90 text-white font-bold rounded border border-black/20 shadow px-3 py-1.5 mt-4">Koop</a>
+                    <a href="/transactions/create/{{ $equity->id }}&type=buy" class="inline-block w-2xs text-sm text-center bg-blueFin hover:bg-blueFin/90 text-white font-bold rounded border border-black/20 shadow px-3 py-1.5 mt-4">Koop</a>
                 </li>
                 <li class="text-center">
-                    <a href="" class="inline-block w-2xs text-sm text-center bg-error hover:bg-error/90 text-white font-bold rounded border border-black/20 shadow px-3 py-1.5 mt-4">Verkoop</a>
+                    <a href="/transactions/create/{{ $equity->id }}&type=sell" class="inline-block w-2xs text-sm text-center bg-error hover:bg-error/90 text-white font-bold rounded border border-black/20 shadow px-3 py-1.5 mt-4">Verkoop</a>
                 </li>
             </ul>
         </div>
