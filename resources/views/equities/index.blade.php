@@ -2,7 +2,7 @@
     <x-slot:title>
         Aandelen
     </x-slot:title>
-    <section class="relative max-w-4xl mx-auto mt-8 px-4">
+    <section class="max-w-4xl mx-auto mt-8 px-4">
         <x-section-header>Aandelen</x-section-header>
         <ul>
             @foreach ($equities as $equity)
