@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stock_user', function (Blueprint $table) {
+        Schema::create('equity_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Equity::class)->constrained()->cascadeOnDelete();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('buyPrice');
             $table->timestamps();
 
-            $table->unique(['user_id', 'stock_id']);
+            $table->unique(['user_id', 'equity_id']);
 
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stock_user');
+        Schema::dropIfExists('equity_user');
     }
 };

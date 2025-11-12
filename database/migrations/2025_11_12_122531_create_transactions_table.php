@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('stock_id')->constrained()->onDelete('cascade');
+            $table->foreignId('equity_id')->constrained()->onDelete('cascade');
             $table->enum('type', ['buy', 'sell']);
             $table->decimal('quantity', 10, 4);
             $table->decimal('price', 10, 2);

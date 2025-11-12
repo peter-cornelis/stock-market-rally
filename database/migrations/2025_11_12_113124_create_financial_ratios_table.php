@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('financial_ratios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('stock_id')->constrained()->cascadeOnDelete()->unique();
+            $table->foreignId('equity_id')->constrained()->cascadeOnDelete()->unique();
             $table->date('date');
             $table->decimal('beta', 5, 3);
             $table->decimal('priceToEarningsRatio', 5, 2);

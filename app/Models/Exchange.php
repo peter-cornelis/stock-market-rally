@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Exchange extends Model
 {
+    public $timestamps = false;
+
     public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class, 'exchange_company');
