@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Company;
+use App\Models\Exchange;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exchanges', function (Blueprint $table) {
+        Schema::create('exchange_company', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->string('currency', 3);
+            $table->foreignIdFor(Exchange::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exchanges');
+        Schema::dropIfExists('exchange_company');
     }
 };
