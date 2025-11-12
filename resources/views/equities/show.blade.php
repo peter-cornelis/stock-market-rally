@@ -7,7 +7,7 @@
 
         @if($equity->financialRatio)
         <article class="grid grid-cols-[auto_1fr_1fr_1fr] text-center max-w-3xl mx-auto mt-10 px-6 py-4 bg-white rounded-lg shadow">
-            <div class="text-left pr-6">
+            <div class="text-left pr-10">
                 <h3 class="text-lg font-bold text-black/50 mb-2">Financiele ratio's</h3>
                 Beta waarde: {{ $equity->financialRatio->beta }} <br>
                 Omzet per aandeel: {{ $equity->financialRatio->revenuePerShare }} <br>
