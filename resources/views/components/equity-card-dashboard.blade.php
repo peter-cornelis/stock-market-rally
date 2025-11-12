@@ -1,5 +1,5 @@
-<li class="border-b last:border-none border-black/20 px-3 py-2 rounded-lg hover:bg-black/2">
-    <a href="" class="flex justify-between">
+<li class="border-b last:border-none border-black/20">
+    <a href="" class="flex justify-between px-4 py-2 hover:bg-black/2">
         <div class="grid grid-flow-row">
             Nvidia Corperation - NVDA
             <span class="text-xs font-bold">30</span>

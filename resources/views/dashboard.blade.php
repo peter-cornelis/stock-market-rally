@@ -18,6 +18,8 @@
 
         <ul class="max-w-3xl mx-auto mt-10 px-2 py-2 bg-white rounded-lg shadow">
             <x-equity-card-dashboard />
+            <x-equity-card-dashboard />
+            <x-equity-card-dashboard />
         </ul>
         
     </section>
