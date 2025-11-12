@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Equity extends Model
 {
@@ -18,19 +20,19 @@ class Equity extends Model
         return $this->belongsTo(Exchange::class);
     }
 
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'stock_user');
     }
 
-    public function transactions()
+    public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
     }
 
-    public function financialRatios()
+    public function financialRatio():HasOne
     {
-        return $this->hasMany(FinancialRatio::class);
+        return $this->HasOne(FinancialRatio::class);
     }
 
     public function charts(): HasMany

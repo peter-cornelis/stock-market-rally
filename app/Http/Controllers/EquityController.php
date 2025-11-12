@@ -10,11 +10,15 @@ class EquityController extends Controller
     {
         $equities = Equity::with([
             'company', 
-            'exchange',
-            'charts' => function($query) {
-                $query->orderBy('date', 'desc')->limit(2);
-            }
+            'exchange'
         ])->orderBy('symbol')->get();
         return view('equities.index', ['equities' => $equities]);
+    }
+
+    public function show(Equity $equity)
+    {
+        $equity->load(['company', 'exchange', 'financialRatio']);
+                
+        return view('equities.show', ['equity' => $equity]);
     }
 }

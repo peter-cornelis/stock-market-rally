@@ -14,6 +14,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 //Equity
 Route::get('/equities', [EquityController::class, 'index']);
+Route::get('/equities/{equity}', [EquityController::class, 'show']);
 
 // Auth
 Route::middleware('guest')->group(function () {
