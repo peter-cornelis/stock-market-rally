@@ -5,6 +5,18 @@
     <section class="max-w-4xl mx-auto mt-8 px-4">
         <x-section-header>{{ $equity->company->name }}</x-section-header>
 
+        <div class="max-w-3xl mx-auto mt-10 px-6 py-4 bg-white rounded-lg shadow">
+            <canvas id="myChart" height="100" data-chart-data="{{ json_encode($equity->charts) }}" data-symbol="{{ $equity->symbol }}"></canvas>
+            <ul class="grid grid-cols-[1fr_1fr] gap-6">
+                <li class="text-center">
+                    <a href="" class="inline-block w-2xs text-sm text-center bg-blueFin hover:bg-blueFin/90 text-white font-bold rounded border border-black/20 shadow px-3 py-1.5 mt-4">Koop</a>
+                </li>
+                <li class="text-center">
+                    <a href="" class="inline-block w-2xs text-sm text-center bg-error hover:bg-error/90 text-white font-bold rounded border border-black/20 shadow px-3 py-1.5 mt-4">Verkoop</a>
+                </li>
+            </ul>
+        </div>
+
         @if($equity->financialRatio)
         <article class="grid grid-cols-[auto_1fr_1fr_1fr] text-center max-w-3xl mx-auto mt-10 px-6 py-4 bg-white rounded-lg shadow">
             <div class="text-left pr-10">

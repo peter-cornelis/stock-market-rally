@@ -17,7 +17,7 @@ class EquityController extends Controller
 
     public function show(Equity $equity)
     {
-        $equity->load(['company', 'exchange', 'financialRatio']);
+        $equity->load(['company', 'exchange', 'financialRatio', 'charts']);
                 
         return view('equities.show', ['equity' => $equity]);
     }
