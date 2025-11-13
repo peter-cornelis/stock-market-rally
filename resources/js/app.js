@@ -1,5 +1,9 @@
 import './bootstrap';
 import { initStockChart } from './stock-chart';
+import initTransactionForm from './transaction-form';
+
+// Auto-initialize transaction form if present on page
+document.addEventListener('DOMContentLoaded', () => initTransactionForm());
 
 // Auto-initialize stock chart if present on page
 document.addEventListener('DOMContentLoaded', () => {

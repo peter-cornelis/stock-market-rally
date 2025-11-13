@@ -39,14 +39,9 @@ class TransactionController extends Controller
                 'quantity' => 'Saldo ontoereikend.'
             ]);
         }
-        $user->transactions()->attach($equityId, [
-            'quantity' => $quantity,
-            'buyPrice' => $price,
-        ]);
-        $user->balance -= ($quantity * $equity->current_price);
 
-        $user->equities()->syncWithoutDetaching([
-            $equity->id => ['quantity' => $quantity, 'buyPrice' => $equity->current_price]]);
+        $user->balance -= ($quantity * $equity->current_price);
+        $this->transactionService->buyEquity()
 
         return back();
     }
