@@ -18,7 +18,6 @@ return new class extends Migration
             $table->enum('type', ['buy', 'sell']);
             $table->decimal('quantity', 10, 4);
             $table->decimal('price', 10, 2);
-            $table->decimal('total', 12, 2);
             $table->decimal('fees', 8, 2)->default(0);
             $table->timestamp('executed_at');
             $table->timestamps();

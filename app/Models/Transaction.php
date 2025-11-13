@@ -16,4 +16,10 @@ class Transaction extends Model
     {
         return $this->belongsTo(Equity::class);
     }
+
+    public function getTotalAttribute(): float
+    {
+        $total = ($this->quantity * $this->price);
+        return $this->type === 'buy' ? $total + $this->fee : $total - $this->fee;
+    }
 }

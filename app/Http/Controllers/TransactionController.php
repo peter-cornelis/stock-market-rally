@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equity;
+use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
 {
+    public function __construct(private TransactionService $transactionService)
+    {
+    }
+
     public function create(Equity $equity, Request $request)
     {
         $type = $request->query('type', 'buy');
@@ -18,7 +23,7 @@ class TransactionController extends Controller
 
     public function store(Equity $equity)
     {
-        $attributes = request()->validate([
+        $validated = request()->validate([
             'quantity' => ['required', 'int', 'min:1'],
             [
                 'quantity.required' => 'Aantal vereist.',
@@ -26,14 +31,19 @@ class TransactionController extends Controller
                 'quantity.min' => 'Aantal van 1 of hoger vereist']
             ]);
         
-        $quantity = $attributes['quantity'];
+        $quantity = $validated['quantity'];
         $user = Auth::user();
-
+        
         if($user->balance < ($quantity * $equity->current_price)) {
             throw ValidationException::withMessages([
                 'quantity' => 'Saldo ontoereikend.'
             ]);
         }
+        $user->transactions()->attach($equityId, [
+            'quantity' => $quantity,
+            'buyPrice' => $price,
+        ]);
+        $user->balance -= ($quantity * $equity->current_price);
 
         $user->equities()->syncWithoutDetaching([
             $equity->id => ['quantity' => $quantity, 'buyPrice' => $equity->current_price]]);
