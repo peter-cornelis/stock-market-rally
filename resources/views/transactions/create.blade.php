@@ -8,7 +8,7 @@
             @csrf
             <x-form-label for="amount">
                 Aantal <x-form-asterix/>
-                <x-form-input name="amount" id="amount" type="number" value="{{ old('amount') }}" required />
+                <x-form-input name="amount" id="amount" type="number" value="{{ old('amount') }}" min="1" step="1" required />
                 @error('amount')
                     <span class="absolute text-error text-sm">{{ $message }}</span>
                 @enderror
