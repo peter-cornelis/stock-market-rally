@@ -40,9 +40,6 @@ class TransactionController extends Controller
             ]);
         }
 
-        $user->balance -= ($quantity * $equity->current_price);
-        $this->transactionService->buyEquity()
-
         return back();
     }
 }
