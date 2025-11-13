@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -50,11 +51,33 @@ class User extends Authenticatable
 
     public function equities(): BelongsToMany
     {
-        return $this->belongsToMany(Equity::class, 'equity_user');
+        return $this->belongsToMany(Equity::class, 'equity_user')
+                    ->withPivot('quantity', 'buyPrice')
+                    ->orderBy('symbol');
     }
 
-    public function transactions()
+    public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function getEquitiesValueAttribute(): float
+    {
+        return $this->equities->sum('value');
+    }
+
+    public function getPortfolioValueAttribute(): float
+    {
+        return $this->balance + $this->equities_value;
+    }
+
+    public function getPortfolioGainAttribute(): float
+    {
+        return $this->portfolio_value - $this->starting_balance;
+    }
+
+    public function getPortfolioGainPercentageAttribute(): float
+    {
+        return round(($this->portfolio_gain / $this->starting_balance) * 100, 2);
     }
 }

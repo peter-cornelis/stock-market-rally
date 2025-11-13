@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Equity;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,15 +16,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $this->call([
+            NvidiaSeeder::class,
+        ]);
+
+        $user = User::factory()->create([
             'first_name' => 'Test',
             'last_name' => 'User',
             'email' => 'test@example.com',
             'password' => 'password'
         ]);
 
-        $this->call([
-            NvidiaSeeder::class,
+        $user->equities()->attach(1, [
+            'quantity' => 10,
+            'buyPrice' => 150.50
         ]);
+
     }
 }

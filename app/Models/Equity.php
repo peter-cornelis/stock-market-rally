@@ -62,12 +62,12 @@ class Equity extends Model
 
     public function getQuantityAttribute(): int
     {
-        return $this->pivot ? $this->pivot->quantity : 0;
+        return $this->pivot?->quantity ?? 0;
     }
 
     public function getBuyPriceAttribute(): float
     {
-        return $this->pivot ? $this->pivot->buyPrice : 0;
+        return $this->pivot?->buyPrice ?? 0;
     }
 
     public function getValueAttribute(): float
@@ -75,14 +75,19 @@ class Equity extends Model
         return $this->quantity * $this->current_price;
     }
 
+    public function getStartingValueAttribute(): float
+    {
+        return $this->quantity * $this->buyPrice;
+    }
+
     public function getValueChangeAttribute(): float
     {
-        return $this->value - ($this->quantity * $this->buyPrice);
+        return $this->value - $this->starting_value;
     }
 
     public function getValueChangePercentageAttribute(): float
     {
-        $value = $this->value;
+        $value = $this->starting_value;
         $change = $this->value_change;
         
         return $value > 0 ? round(($change / $value) * 100, 2) : 0;
