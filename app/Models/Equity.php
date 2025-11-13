@@ -22,7 +22,7 @@ class Equity extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'stock_user');
+        return $this->belongsToMany(User::class, 'equity_user');
     }
 
     public function transactions(): HasMany
@@ -30,9 +30,9 @@ class Equity extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function financialRatio():HasOne
+    public function financialRatio(): HasOne
     {
-        return $this->HasOne(FinancialRatio::class);
+        return $this->hasOne(FinancialRatio::class);
     }
 
     public function charts(): HasMany
@@ -49,7 +49,7 @@ class Equity extends Model
     {
         $latest = $this->charts()->latest('date')->limit(2)->get();
         
-        return round($latest[0]->price - $latest[1]->price, 2);
+        return count($latest) == 2 ? round($latest[0]->price - $latest[1]->price, 2) : 0;
     }
 
     public function getDailyChangePercentageAttribute(): float
@@ -57,17 +57,17 @@ class Equity extends Model
         $price = $this->current_price;
         $change = $this->daily_change;
         
-        return round(($change / $price) * 100, 2);
+        return $price > 0 ? round(($change / $price) * 100, 2) : 0;
     }
 
     public function getQuantityAttribute(): int
     {
-        return $this->pivot->quantity;
+        return $this->pivot ? $this->pivot->quantity : 0;
     }
 
     public function getBuyPriceAttribute(): float
     {
-        return $this->pivot->buyPrice;
+        return $this->pivot ? $this->pivot->buyPrice : 0;
     }
 
     public function getValueAttribute(): float
@@ -85,6 +85,6 @@ class Equity extends Model
         $value = $this->value;
         $change = $this->value_change;
         
-        return round(($change / $value) * 100, 2);
+        return $value > 0 ? round(($change / $value) * 100, 2) : 0;
     }
 }
