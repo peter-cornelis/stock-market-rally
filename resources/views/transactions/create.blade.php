@@ -4,12 +4,12 @@
     </x-slot:title>
     <section class="max-w-4xl mx-auto mt-8 px-4">
         <x-section-header>{{ $type === 'buy' ? 'Kopen' : 'Verkopen' }} : {{ $equity->company->name }}</x-section-header>
-        <form action="/transactions" method="post" class="max-w-md mx-auto mt-8 px-10 py-8 bg-white rounded-lg shadow">
+        <form action="/transactions/{{ $equity->id }}" method="post" class="max-w-md mx-auto mt-8 px-10 py-8 bg-white rounded-lg shadow">
             @csrf
-            <x-form-label for="amount">
+            <x-form-label for="quantity">
                 Aantal <x-form-asterix/>
-                <x-form-input name="amount" id="amount" type="number" value="{{ old('amount') }}" min="1" step="1" required />
-                @error('amount')
+                <x-form-input name="quantity" id="quantity" type="number" value="{{ old('quantity') }}" min="1" step="1" required />
+                @error('quantity')
                     <span class="absolute text-error text-sm">{{ $message }}</span>
                 @enderror
             </x-form-label>
