@@ -12,6 +12,7 @@ class EquityController extends Controller
             'company', 
             'exchange'
         ])->orderBy('symbol')->get();
+        
         return view('equities.index', ['equities' => $equities]);
     }
 

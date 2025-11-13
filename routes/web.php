@@ -18,7 +18,10 @@ Route::get('/equities', [EquityController::class, 'index']);
 Route::get('/equities/{equity}', [EquityController::class, 'show']);
 
 //Transactions
-Route::get('/transactions/create/{equity}', [TransactionController::class, 'create']);
+Route::middleware('auth')->group(function () {
+    Route::get('/transactions/create/{equity}', [TransactionController::class, 'create']);
+    Route::post('/transactions', [TransactionController::class, 'store']);
+});
 
 // Auth
 Route::middleware('guest')->group(function () {

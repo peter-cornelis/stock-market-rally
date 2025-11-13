@@ -52,11 +52,39 @@ class Equity extends Model
         return round($latest[0]->price - $latest[1]->price, 2);
     }
 
-    public function getChangePercentageAttribute(): float
+    public function getDailyChangePercentageAttribute(): float
     {
         $price = $this->current_price;
         $change = $this->daily_change;
         
         return round(($change / $price) * 100, 2);
+    }
+
+    public function getQuantityAttribute(): int
+    {
+        return $this->pivot->quantity;
+    }
+
+    public function getBuyPriceAttribute(): float
+    {
+        return $this->pivot->buyPrice;
+    }
+
+    public function getValueAttribute(): float
+    {
+        return $this->quantity * $this->current_price;
+    }
+
+    public function getValueChangeAttribute(): float
+    {
+        return $this->value - ($this->quantity * $this->buyPrice);
+    }
+
+    public function getValueChangePercentageAttribute(): float
+    {
+        $value = $this->value;
+        $change = $this->value_change;
+        
+        return round(($change / $value) * 100, 2);
     }
 }

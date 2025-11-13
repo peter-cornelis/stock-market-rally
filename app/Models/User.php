@@ -19,7 +19,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -49,7 +50,7 @@ class User extends Authenticatable
 
     public function equities(): BelongsToMany
     {
-        return $this->belongsToMany(Equity::class, 'stock_user');
+        return $this->belongsToMany(Equity::class, 'equity_user');
     }
 
     public function transactions()
