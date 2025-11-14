@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'fmp' => [
+        'key' => env('FMP_API_KEY'),
+        'base_url' => 'https://financialmodelingprep.com/stable',
+    ],
 
 ];
