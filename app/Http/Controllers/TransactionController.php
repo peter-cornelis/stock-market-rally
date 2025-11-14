@@ -24,21 +24,21 @@ class TransactionController extends Controller
     public function store(Equity $equity)
     {
         $validated = request()->validate([
-            'quantity' => ['required', 'int', 'min:1'],
-            [
-                'quantity.required' => 'Aantal vereist.',
-                'quantity.integer' => 'Aantal dient een positief natuurlijk getal te zijn.',
-                'quantity.min' => 'Aantal van 1 of hoger vereist']
-            ]);
+        'quantity' => ['required', 'integer', 'min:1'],
+        'type' => ['required', 'in:buy,sell']
+        ], [
+            'quantity.required' => 'Aantal vereist.',
+            'quantity.integer' => 'Aantal dient een positief natuurlijk getal te zijn.',
+            'quantity.min' => 'Aantal van 1 of hoger vereist.',
+            'type' => 'Transactietype onbekend.',
+        ]);
         
-        $quantity = $validated['quantity'];
+        $quantity = (int) $validated['quantity'];
+        $type = (string) $validated['type'];
         $user = Auth::user();
-        
-        if($user->balance < ($quantity * $equity->current_price)) {
-            throw ValidationException::withMessages([
-                'quantity' => 'Saldo ontoereikend.'
-            ]);
-        }
+
+            $result = $this->transactionService->addTransaction($user, $equity, $quantity, $type);
+
 
         return back();
     }

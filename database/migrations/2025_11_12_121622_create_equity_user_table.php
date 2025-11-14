@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Equity::class)->constrained()->cascadeOnDelete();
             $table->decimal('quantity');
-            $table->decimal('buyPrice');
+            $table->decimal('buy_price');
             $table->timestamps();
 
             $table->unique(['user_id', 'equity_id']);

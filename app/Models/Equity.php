@@ -67,7 +67,7 @@ class Equity extends Model
 
     public function getBuyPriceAttribute(): float
     {
-        return $this->pivot->buyPrice;
+        return $this->pivot->buy_price;
     }
 
     public function getValueAttribute(): float

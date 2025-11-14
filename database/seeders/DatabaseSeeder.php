@@ -26,11 +26,5 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => 'password'
         ]);
-
-        $user->equities()->attach(1, [
-            'quantity' => 10,
-            'buyPrice' => 150.50
-        ]);
-
     }
 }

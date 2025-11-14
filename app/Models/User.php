@@ -53,7 +53,7 @@ class User extends Authenticatable
     public function equities(): BelongsToMany
     {
         return $this->belongsToMany(Equity::class, 'equity_user')
-                    ->withPivot('quantity', 'buyPrice')
+                    ->withPivot('quantity', 'buy_price')
                     ->orderBy('symbol');
     }
 
@@ -69,12 +69,12 @@ class User extends Authenticatable
 
     public function getPortfolioValueAttribute(): float
     {
-        return $this->balance + $this->equities_value;
+        return round($this->balance + $this->equities_value, 2);
     }
 
     public function getPortfolioGainAttribute(): float
     {
-        return $this->portfolio_value - $this->starting_balance;
+        return round($this->portfolio_value - $this->starting_balance, 2);
     }
 
     public function getPortfolioGainPercentageAttribute(): float
