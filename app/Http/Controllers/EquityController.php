@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equity;
+use App\Services\EquityService;
 
 class EquityController extends Controller
 {
+    public function __construct(private EquityService $equityService)
+    {
+    }
+
     public function index()
     {
         $equities = Equity::with([
@@ -22,4 +27,11 @@ class EquityController extends Controller
                 
         return view('equities.show', ['equity' => $equity]);
     }
+
+    public function create()
+    {
+        if (!auth()->user()->admin) abort(403);
+        return view('equities.create');
+    }
+
 }

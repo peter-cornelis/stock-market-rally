@@ -15,6 +15,7 @@ Route::get('/portfolio', [PortfolioController::class, 'index'])->middleware('aut
 
 //Equity
 Route::get('/equities', [EquityController::class, 'index']);
+Route::get('/equities/create', [EquityController::class, 'create'])->middleware('auth');
 Route::get('/equities/{equity}', [EquityController::class, 'show']);
 
 //Transactions
