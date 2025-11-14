@@ -82,7 +82,7 @@ class Equity extends Model
 
     public function getValueChangeAttribute(): float
     {
-        return $this->value - $this->starting_value;
+        return round($this->value - $this->starting_value, 2);
     }
 
     public function getValueChangePercentageAttribute(): float

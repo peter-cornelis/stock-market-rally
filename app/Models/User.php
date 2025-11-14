@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function getEquitiesValueAttribute(): float
     {
-        return $this->equities->sum('value');
+        return round($this->equities->sum('value'), 2);
     }
 
     public function getPortfolioValueAttribute(): float
