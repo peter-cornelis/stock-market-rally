@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\EquityController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/portfolio', [PortfolioController::class, 'index'])->middleware('auth');
 
 //Equity
 Route::get('/equities', [EquityController::class, 'index']);

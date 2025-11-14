@@ -38,6 +38,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect('/dashboard')->with('status', "Welkom $user->first_name");
+        return redirect('/portfolio')->with('status', "Welkom $user->first_name");
     }
 }

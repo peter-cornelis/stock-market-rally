@@ -6,7 +6,6 @@ use App\Models\Equity;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
 {

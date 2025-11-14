@@ -35,7 +35,7 @@ class SessionController extends Controller
         $username = Auth::user()->first_name;
 
         //redirect
-        return redirect('/dashboard')->with('status', "Welkom $username");
+        return redirect('/portfolio')->with('status', "Welkom $username");
     }
 
     public function destroy()

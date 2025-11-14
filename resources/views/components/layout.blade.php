@@ -20,7 +20,7 @@
             <nav class="flex justify-between items-center">
                 <ul class="flex gap-4 items-center">
                     <x-nav-link href="/"><img src="{{ Vite::asset('resources/images/logo.webp') }}" alt="Stock Market Rally Logo" class="h-9 object-contain pr-2" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;"></x-nav-link>
-                    <x-nav-link href="/dashboard" :active="request()->is('dashboard')">Dashboard</x-nav-link>
+                    <x-nav-link href="/portfolio" :active="request()->is('portfolio')">Portefeuille</x-nav-link>
                     <x-nav-link href="/equities" :active="request()->is('equities')">Aandelen</x-nav-link>
                     <x-nav-link href="/ranking" :active="request()->is('ranking')">Ranglijst</x-nav-link>
                 </ul>

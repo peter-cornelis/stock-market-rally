@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
-class DashboardController extends Controller
+class PortfolioController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
         
-        return view('dashboard', compact('user'));
+        return view('portfolio', compact('user'));
     }
 }
