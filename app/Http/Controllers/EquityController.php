@@ -34,4 +34,15 @@ class EquityController extends Controller
         return view('equities.create');
     }
 
+    public function store()
+    {
+        $validated = request()->validate([
+            'symbol' => ['required', 'string', 'min:2', 'max:10']
+        ],[
+            'symbol.required' => 'Symbool vereist.',
+            'symbol.min' => 'Minstens 2 karakters vereist.',
+            'symbol.max' => 'Maximaal 10 karakters toegestaan.'
+        ]);
+    }
+
 }
