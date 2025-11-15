@@ -16,7 +16,7 @@ class FmpService
         $this->baseUrl = config('services.fmp.base_url');
     }
 
-    public function getCompanyProfile(string $symbol): ?array
+    public function getCompanyProfile(string $symbol): array
     {
         $response = Http::get("{$this->baseUrl}/profile", [
             'symbol' => $symbol,
@@ -35,6 +35,6 @@ class FmpService
             ]);
         }
 
-        return $response->successful() ? $response->json() : null;
+        return $response->json();
     }
 }
