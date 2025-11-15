@@ -23,6 +23,7 @@ class EquityService
         }
 
         $profileData = $this->fmpService->getCompanyProfile($symbol);
-        dd($profileData);
+        $ratiosData = $this->fmpService->getFinancialRatios($symbol);
+        dd($ratiosData);
     }
 }
