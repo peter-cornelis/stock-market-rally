@@ -24,6 +24,7 @@ class EquityService
 
         $profileData = $this->fmpService->getCompanyProfile($symbol);
         $ratiosData = $this->fmpService->getFinancialRatios($symbol);
-        dd($ratiosData);
+        $historicalPrices = $this->fmpService->getHistoricalPrices($symbol);
+        dd($historicalPrices);
     }
 }
