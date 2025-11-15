@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equity;
 use App\Services\EquityService;
+use Illuminate\Support\Facades\Auth;
 
 class EquityController extends Controller
 {
@@ -30,7 +31,7 @@ class EquityController extends Controller
 
     public function create()
     {
-        if (!auth()->user()->admin) abort(403);
+        if (!Auth::user()->admin) abort(403);
         return view('equities.create');
     }
 
@@ -43,6 +44,10 @@ class EquityController extends Controller
             'symbol.min' => 'Minstens 2 karakters vereist.',
             'symbol.max' => 'Maximaal 10 karakters toegestaan.'
         ]);
+
+        $this->equityService->addEquity($validated['symbol']);
+
+        return back();
     }
 
 }
