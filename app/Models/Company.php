@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Model
 {
+    protected $guarded = [];
+
     public function exchanges(): BelongsToMany
     {
         return $this->belongsToMany(Exchange::class, 'exchange_company');

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Equity extends Model
 {
+    protected $guarded = [];
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);

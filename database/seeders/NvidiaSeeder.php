@@ -15,15 +15,13 @@ class NvidiaSeeder extends Seeder
      */
     public function run(): void
     {
-        $nasExchange = Exchange::firstOrCreate(
-            ['code' => 'NASDAQ'],
-            [
-                'name' => 'NASDAQ Global Select',
-                'currency' => 'USD'
-            ]
-        );
+        $nasExchange = Exchange::create([
+            'code' => 'NASDAQ',
+            'name' => 'NASDAQ Global Select',
+            'currency' => 'USD'
+            ]);
 
-        $nvdaCompany = Company::firstOrCreate(
+        $nvdaCompany = Company::create(
             [
                 'name' => 'NVIDIA Corporation',
                 'website' => 'https://www.nvidia.com',
@@ -34,36 +32,28 @@ class NvidiaSeeder extends Seeder
             ]
         );
 
-        if (!$nvdaCompany->exchanges()->where('exchange_id', $nasExchange->id)->exists()) {
-            $nvdaCompany->exchanges()->attach($nasExchange->id);
-        }
+        $nvdaCompany->exchanges()->attach($nasExchange->id);
 
-        $nvdaEquity = Equity::firstOrCreate(
+        $nvdaEquity = Equity::create(
             [
                 'company_id' => $nvdaCompany->id,
                 'exchange_id' => $nasExchange->id,
-            ],
-            [
                 'isin' => 'US67066G1040',
                 'symbol' => 'NVDA',
                 'lastDividend' => 0.99
             ]
         );
 
-        FinancialRatio::updateOrCreate(
-            [
-                'equity_id' => $nvdaEquity->id,
-            ],
-            [
-                'date' => now(),
-                'beta' => 2.269,
-                'priceToEarningsRatio' => 40.25,
-                'priceToBookRatio' => 25.50,
-                'dividendYieldPercentage' => 0.03,
-                'currentRatio' => 4.44,
-                'revenuePerShare' => 5.23,
-            ]
-        );
+        FinancialRatio::create([
+            'equity_id' => $nvdaEquity->id,
+            'date' => now(),
+            'beta' => 2.269,
+            'priceToEarningsRatio' => 40.25,
+            'priceToBookRatio' => 25.50,
+            'dividendYieldPercentage' => 0.03,
+            'currentRatio' => 4.44,
+            'revenuePerShare' => 5.23,
+        ]);
 
         $data = [
             ["date" => "2025-11-06", "price" => 188.08, "volume" => 223029778],
@@ -75,13 +65,11 @@ class NvidiaSeeder extends Seeder
 
         // Insert chart data
         foreach ($data as $item) {
-            $nvdaEquity->charts()->firstOrCreate(
-                ['date' => $item['date']],
-                [
-                    'price' => $item['price'],
-                    'volume' => $item['volume']
-                ]
-            );
+            $nvdaEquity->charts()->create([
+                'date' => $item['date'],
+                'price' => $item['price'],
+                'volume' => $item['volume']
+            ]);
         }
     }
 }

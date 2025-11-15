@@ -35,7 +35,7 @@ class FmpService
             ]);
         }
 
-        return $response->json();
+        return $response->json()[0];
     }
 
     public function getFinancialRatios(string $symbol): array
@@ -64,6 +64,8 @@ class FmpService
     {
         $response = Http::get("{$this->baseUrl}/historical-price-eod/light", [
             'symbol' => $symbol,
+            'from' => now()->subYears(5)->format('Y-m-d'),
+            'to' => now()->format('Y-m-d'),
             'apikey' => $this->apiKey
         ]);
 

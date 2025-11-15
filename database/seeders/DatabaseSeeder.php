@@ -16,11 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         $this->call([
             NvidiaSeeder::class,
         ]);
+        */
 
-        $user = User::factory()->create([
+        User::factory()->create([
             'first_name' => 'Test',
             'last_name' => 'User',
             'email' => 'test@example.com',

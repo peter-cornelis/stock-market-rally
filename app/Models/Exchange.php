@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Exchange extends Model
 {
+    protected $guarded = [];
+
     public $timestamps = false;
 
     public function companies(): BelongsToMany

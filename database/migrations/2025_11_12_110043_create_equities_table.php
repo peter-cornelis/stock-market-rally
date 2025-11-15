@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('equities', function (Blueprint $table) {
             $table->id();
-            $table->string('symbol');
-            $table->string('isin')->unique();
             $table->foreignIdFor(Exchange::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
-            $table->decimal('lastDividend', 3, 3)->nullable();
+            $table->string('isin')->unique();
+            $table->string('symbol');
+            $table->decimal('lastDividend', 3, 3)->default(0);
             $table->timestamps();
 
             $table->unique(['exchange_id', 'symbol']);

@@ -12,7 +12,7 @@ export default function initTransactionForm() {
         
         let fee = Number((gross / 100 * 0.25).toFixed(2));
         fee > 2.5 && gross > 0 ? fee = fee : fee = 2.5;
-        const total = type === "buy" ? gross + fee : gross - fee;
+        const total = (type === "buy" ? gross + fee : gross - fee).toFixed(2);
         
         document.getElementById('gross').textContent = gross;
         document.getElementById('fee').textContent = fee;
