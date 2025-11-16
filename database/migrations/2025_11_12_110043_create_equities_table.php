@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
             $table->string('isin')->unique();
             $table->string('symbol');
-            $table->decimal('lastDividend', 3, 3)->default(0);
+            $table->decimal('lastDividend', 5, 3)->default(0);
             $table->timestamps();
 
             $table->unique(['exchange_id', 'symbol']);

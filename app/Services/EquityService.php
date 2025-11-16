@@ -14,7 +14,7 @@ class EquityService
     {
     }
 
-    public function addEquity(string $symbol)
+    public function addEquity(string $symbol): void
     {
         if (Equity::where('symbol', $symbol)->first()) {
             throw ValidationException::withMessages([
@@ -29,7 +29,7 @@ class EquityService
         $exchange = $this->objectBuilder->exchange($profile);
         $company = $this->objectBuilder->company($profile, $exchange->id);
         $equity = $this->objectBuilder->equity($profile, $company->id, $exchange->id);
-        $this->objectBuilder->financialRatio($equity->id,$profile['beta'], $FinancialRatios['date']);
+        $this->objectBuilder->financialRatio($equity->id,$profile['beta'], $FinancialRatios);
         $this->objectBuilder->charts($equity, $historicalPrices);
     }
 }
