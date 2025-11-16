@@ -16,7 +16,8 @@ class EquityController extends Controller
     {
         $equities = Equity::with([
             'company', 
-            'exchange'
+            'exchange',
+            'charts' => fn($query) => $query->latest('date')->limit(2)
         ])->orderBy('symbol')->get();
         
         return view('equities.index', ['equities' => $equities]);

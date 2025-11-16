@@ -44,12 +44,12 @@ class Equity extends Model
 
     public function getCurrentPriceAttribute(): ?float
     {
-        return $this->charts()->latest('date')->value('price');
+        return $this->charts->sortByDesc('date')->first()->price;
     }
 
     public function getDailyChangeAttribute(): float
     {
-        $latest = $this->charts()->latest('date')->limit(2)->get();
+        $latest = $this->charts->sortByDesc('date')->take(2);
         
         return count($latest) == 2 ? round($latest[0]->price - $latest[1]->price, 2) : 0;
     }
