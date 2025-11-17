@@ -20,7 +20,7 @@ class EquityController extends Controller
             'company', 
             'exchange',
             'charts' => fn($query) => $this->chartService->latestTwo($query)
-        ])->orderBy('symbol')->get();
+        ])->orderBy('symbol')->paginate(5);
         
         return view('equities.index', ['equities' => $equities]);
     }

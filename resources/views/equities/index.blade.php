@@ -12,5 +12,6 @@
                 <x-equity-card :$equity/>
             @endforeach
         </ul>
+        {{ $equities->links() }}
     </section>
 </x-layout>
