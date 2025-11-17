@@ -25,8 +25,10 @@ class EquityController extends Controller
 
     public function show(Equity $equity)
     {
-        $equity->load(['company', 'exchange', 'financialRatio', 'charts']);
-                
+        $equity->load([
+            'financialRatio',
+            'charts' => fn($query) => $query->where('date', '>=', now()->subMonth())
+        ]);                
         return view('equities.show', ['equity' => $equity]);
     }
 

@@ -54,6 +54,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Equity::class, 'equity_user')
                     ->withPivot('quantity', 'buy_price')
+                    ->with(['charts' => fn($query) => $query->latest('date')->limit(2)])
                     ->orderBy('symbol');
     }
 
