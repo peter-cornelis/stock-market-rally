@@ -1,7 +1,7 @@
 <?php
 
 use App\Services\EquityService;
-use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Schedule;
 
 Schedule::call(function () {
     app(EquityService::class)->updateAllEquityCharts();

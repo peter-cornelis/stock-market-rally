@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\EquityController;
+use App\Http\Controllers\RankingController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TransactionController;
@@ -12,6 +13,7 @@ Route::get('/', function () {
 });
 
 Route::get('/portfolio', [PortfolioController::class, 'index'])->middleware('auth');
+Route::get('/ranking', [RankingController::class, 'index']);
 
 //Equity
 Route::get('/equities', [EquityController::class, 'index']);
