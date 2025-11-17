@@ -76,14 +76,20 @@ class ObjectBuilder
         );
     }
 
-    public function charts(Equity $equity, array $historicalPrices)
+    public function charts(Equity $equity, array $historicalPrices): void
     {
-        $equity->charts()->createMany(
-            array_map(fn($item) => [
-                'date' => $item['date'],
-                'price' => $item['price'],
-                'volume' => $item['volume'],
-            ], $historicalPrices)
-        );
+        foreach ($historicalPrices as $item) {
+            $equity->charts()->firstOrCreate(
+                ['date' => $item['date']],
+                [
+                    'price' => $item['price'],
+                    'volume' => $item['volume']
+                ]
+            );
+        }
+
+        $equity->charts()
+            ->where('date', '<', now()->subYears(5))
+            ->delete();
     }
 }

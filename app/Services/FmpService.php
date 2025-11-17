@@ -60,11 +60,11 @@ class FmpService
         return $response->json()[0];
     }
 
-    public function getHistoricalPrices(string $symbol): array
+    public function getHistoricalPrices(string $symbol, ?string $from = null): array
     {
         $response = Http::get("{$this->baseUrl}/historical-price-eod/light", [
             'symbol' => $symbol,
-            'from' => now()->subYears(5)->format('Y-m-d'),
+            'from' => $from ?? now()->subYears(5)->format('Y-m-d'),
             'to' => now()->format('Y-m-d'),
             'apikey' => $this->apiKey
         ]);

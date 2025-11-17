@@ -37,11 +37,24 @@ class EquityService
                 'msg' => "Aandeel $symbol, succesvol toegevoegd."
             ];
 
-        } catch(\Exception) {
+        } catch(ValidationException $e) {
+            throw $e;
+        } catch(\Exception $e) {
             return [
                 'msgType' => 'error',
                 'msg' => "Aandeel $symbol, kon niet worden toegevoegd."
             ];
+        }
+    }
+
+    public function updateAllEquityCharts(): void
+    {
+        $equities = Equity::all();
+
+        foreach ($equities as $equity) {
+        $latestDate = $equity->charts()->max('date');
+        $newPrices = $this->fmpService->getHistoricalPrices($equity->symbol, $latestDate);
+        $this->objectBuilder->charts($equity, $newPrices);
         }
     }
 }
