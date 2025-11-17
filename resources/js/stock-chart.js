@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export function initStockChart(chartData, symbol) {
     const ctx = document.getElementById('myChart');
     
@@ -46,7 +48,14 @@ export function initStockChart(chartData, symbol) {
                 x: {
                     grid: {
                         display: false,
-                    }
+                    },
+                    type: 'time',
+                    time: {
+                        unit: 'month',
+                        tooltipFormat: 'dd MMM yyyy',
+                        displayFormats: {
+                            month: 'MMM'                        }
+                    }                    
                 },
                 y: {
                     grid: {

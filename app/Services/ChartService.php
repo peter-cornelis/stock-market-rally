@@ -16,8 +16,8 @@ class ChartService
             '3M' => now()->subMonths(3),
             '6M' => now()->subMonths(6),
             'YTD' => now()->startOfYear(),
-            '3J' => now()->subYears(3),
-            '5J' => now()->subYears(5),
+            '3Y' => now()->subYears(3),
+            '5Y' => now()->subYears(5),
             default => now()->subYear(),
         };
 

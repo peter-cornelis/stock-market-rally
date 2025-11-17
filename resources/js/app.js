@@ -1,5 +1,6 @@
 import './bootstrap';
 import { initStockChart } from './stock-chart';
+import 'chartjs-adapter-date-fns';
 import initTransactionForm from './transaction-form';
 
 // Auto-initialize transaction form if present on page
