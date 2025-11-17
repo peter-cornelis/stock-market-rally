@@ -53,9 +53,9 @@ class EquityController extends Controller
             'symbol.max' => 'Maximaal 10 karakters toegestaan.'
         ]);
 
-        $this->equityService->addEquity($validated['symbol']);
+        $result = $this->equityService->addEquity($validated['symbol']);
 
-        return back();
+        return back()->with($result['msgType'], $result['msg']);
     }
 
 }

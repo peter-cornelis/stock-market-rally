@@ -16,9 +16,9 @@
             </a>
         </article>
 
-        <ul class="max-w-3xl mx-auto mt-10 px-2 py-2 bg-white rounded-lg shadow">
+        <ul class="max-w-3xl mx-auto mt-10 p-1 bg-white rounded-lg shadow">
             @forelse ($user->equities as $equity)
-                <x-equity-card-dashboard :$equity />
+                <x-equity-card-portfolio :$equity />
             @empty
                 <li class="text-xl text-center text-black/50">Nog geen aandelen toegevoegd.</li>
             @endforelse
