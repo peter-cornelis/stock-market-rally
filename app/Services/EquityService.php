@@ -52,9 +52,9 @@ class EquityService
         $equities = Equity::all();
 
         foreach ($equities as $equity) {
-        $latestDate = $equity->charts()->max('date');
-        $newPrices = $this->fmpService->getHistoricalPrices($equity->symbol, $latestDate);
-        $this->objectBuilder->charts($equity, $newPrices);
+            $latestDate = $equity->charts()->max('date');
+            $newPrices = $this->fmpService->getHistoricalPrices($equity->symbol, $latestDate);
+            $this->objectBuilder->charts($equity, $newPrices);
         }
     }
 }
