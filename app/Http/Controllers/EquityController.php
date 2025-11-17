@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equity;
+use App\Services\ChartService;
 use App\Services\EquityService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class EquityController extends Controller
 {
-    public function __construct(private EquityService $equityService)
+    public function __construct(private ChartService $chartService, private EquityService $equityService)
     {
     }
 
@@ -17,19 +19,22 @@ class EquityController extends Controller
         $equities = Equity::with([
             'company', 
             'exchange',
-            'charts' => fn($query) => $query->latest('date')->limit(2)
+            'charts' => fn($query) => $this->chartService->latestTwo($query)
         ])->orderBy('symbol')->get();
         
         return view('equities.index', ['equities' => $equities]);
     }
 
-    public function show(Equity $equity)
+    public function show(Equity $equity, Request $request)
     {
+        $period = $request->get('period', '1Y');
+
         $equity->load([
             'financialRatio',
-            'charts' => fn($query) => $query->where('date', '>=', now()->subMonth())
-        ]);                
-        return view('equities.show', ['equity' => $equity]);
+            'charts' => fn($query) => $this->chartService->period($query, $period)
+        ]);
+
+        return view('equities.show', ['equity' => $equity, 'currentPeriod' => $period]);
     }
 
     public function create()
