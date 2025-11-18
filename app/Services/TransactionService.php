@@ -36,7 +36,7 @@ class TransactionService
             'total' => $total,
         ]);
 
-        return ['success' => true, 'message' => ($type == 'buy' ? "Aankoop" : "Verkoop") . " succesvol uitgevoerd."];
+        return ['type' => 'status', 'msg' => ($type == 'buy' ? "Aankoop" : "Verkoop") . " succesvol uitgevoerd."];
     }
 
     private function updateBalance(User $user, string $transactionType, float $transactionTotal): void

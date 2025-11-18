@@ -14,27 +14,22 @@ class SessionController extends Controller
 
     public function store()
     {
-        //validate
         $attributes = request()->validate([
             'email' => ['required'],
             'password' => ['required']
         ]);
 
-        //attempt to login user
         if(! Auth::attempt($attributes)) {
             throw ValidationException::withMessages([
                 'email' => 'Incorrect e-mailadres of wachtwoord.'
             ]);
         }
         
-        //regenerate session token
         request()->session()->regenerate();
         
-        //Get User
-        $username = Auth::user()->first_name;
+        $firstName = Auth::user()->first_name;
 
-        //redirect
-        return redirect('/portfolio')->with('status', "Welkom $username");
+        return redirect('/portfolio')->with('status', "Welkom $firstName");
     }
 
     public function destroy()

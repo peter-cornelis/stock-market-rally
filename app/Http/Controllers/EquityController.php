@@ -55,7 +55,7 @@ class EquityController extends Controller
 
         $result = $this->equityService->addEquity($validated['symbol']);
 
-        return back()->with($result['msgType'], $result['msg']);
+        return back()->with($result['type'], $result['msg']);
     }
 
 }

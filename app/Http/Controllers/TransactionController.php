@@ -36,9 +36,8 @@ class TransactionController extends Controller
         $type = (string) $validated['type'];
         $user = Auth::user();
 
-            $result = $this->transactionService->addTransaction($user, $equity, $quantity, $type);
+        $result = $this->transactionService->addTransaction($user, $equity, $quantity, $type);
 
-
-        return back();
+        return back()->with($result['type'], $result['msg']);
     }
 }

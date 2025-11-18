@@ -32,18 +32,12 @@ class EquityService
             $this->objectBuilder->financialRatio($equity->id,$profile['beta'], $FinancialRatios);
             $this->objectBuilder->charts($equity, $historicalPrices);
 
-            return [
-                'msgType' => 'status',
-                'msg' => "Aandeel $symbol, succesvol toegevoegd."
-            ];
+            return ['type' => 'status', 'msg' =>"Aandeel $symbol, succesvol toegevoegd."];
 
         } catch(ValidationException $e) {
             throw $e;
         } catch(\Exception $e) {
-            return [
-                'msgType' => 'error',
-                'msg' => "Aandeel $symbol, kon niet worden toegevoegd."
-            ];
+            return ['type' => 'error', 'msg' =>"Aandeel $symbol, kon niet worden toegevoegd."];
         }
     }
 
