@@ -15,18 +15,19 @@ class RankingService
             'portfolio_value' => $user->portfolio_value,
             'portfolio_gain' => $user->portfolio_gain,
             'portfolio_gain_percentage' => $user->portfolio_gain_percentage,
-            'transactions' => count($user->transactions)
-        ])->sortByDesc('portfolio_value');
+            'transactions' => count($user->transactions),
+            'ranking' => 0
+        ])->sortByDesc('portfolio_value')
+        ->values() // Reset de index sleutels naar 1,2,3 etc na sortBy
+        ->map(fn($ranking, $index) => array_merge($ranking, ['ranking' => $index + 1]));
 
         return $rankings;
     }
 
     public function getUserRanking(int $userId): int
     {
-        foreach ($this->getRankingList() as $index => $user) {
-            if ($user['user_id'] === $userId)  return (int) $index + 1;
-        }
+        $ranking = $this->getRankingList()->where('user_id', $userId)->first();
 
-        return 0;
+        return $ranking['ranking'];
     }
 }
