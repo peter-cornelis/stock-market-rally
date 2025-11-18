@@ -12,7 +12,7 @@
             </ul>
             <a class="flex flex-col items-center">
                 <span class="material-symbols-outlined text-amber-400">crown</span>
-                <span class="text-sm font-semibold">{{ $ranking }}</span>
+                <span class="text-sm font-semibold">{{ $user->ranking }}</span>
             </a>
         </article>
 

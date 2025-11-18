@@ -14,8 +14,7 @@ class PortfolioController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $ranking = $this->rankingService->getUserRanking($user->id);
         
-        return view('portfolio', compact('user', 'ranking'));
+        return view('portfolio', compact('user'));
     }
 }

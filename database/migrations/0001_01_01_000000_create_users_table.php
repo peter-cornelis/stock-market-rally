@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->decimal('starting_balance', 15, 2)->default(10000);
             $table->decimal('balance', 10, 2)->default(10000);
+            $table->integer('ranking')->nullable();
             $table->boolean('admin')->default(false);
             $table->rememberToken();
             $table->timestamps();

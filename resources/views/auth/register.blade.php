@@ -20,6 +20,13 @@
                     <span class="absolute text-error text-sm">{{ $message }}</span>
                 @enderror
             </x-form-label>
+            <x-form-label for="username">
+                Gebruikersnaam <x-form-asterix/>
+                <x-form-input name="username" id="username" value="{{ old('username') }}" required />
+                @error('username')
+                    <span class="absolute text-error text-sm">{{ $message }}</span>
+                @enderror
+            </x-form-label>
             <x-form-label for="email">
                 E-Mailadres <x-form-asterix/>
                 <x-form-input name="email" id="email" type="email" value="{{ old('email') }}" required />
