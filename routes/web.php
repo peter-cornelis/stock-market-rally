@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
 //Transactions
 Route::middleware('auth')->group(function () {
+    Route::get('/users/{user}/transactions', [TransactionController::class, 'index']);
     Route::get('/transactions/create/{equity}', [TransactionController::class, 'create']);
     Route::post('/transactions/{equity}', [TransactionController::class, 'store']);
 });

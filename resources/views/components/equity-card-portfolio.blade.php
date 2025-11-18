@@ -1,4 +1,4 @@
-<li class="border-b last:border-none border-black/20">
+<li class="border-b last:border-none border-black/10">
     <a href="/equities/{{ $equity->id }}" class="flex justify-between px-4 py-2 hover:bg-black/2">
         <div class="grid grid-flow-row">
             <h3 class="font-semibold">{{ $equity->company->name }} | <span class="text-black/60 py-2">{{ $equity->symbol }}</span></h3>

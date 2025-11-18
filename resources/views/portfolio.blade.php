@@ -3,7 +3,7 @@
         Portefeuille
     </x-slot:title>
     <section class="max-w-4xl mx-auto mt-8 px-4">
-        <x-section-header>{{ $user->first_name }}'s Portefeuille </x-section-header>
+        <x-section-header>{{ $user->username }}'s Portefeuille </x-section-header>
         <article class="flex justify-between max-w-3xl mx-auto mt-10 px-6 py-4 bg-white rounded-lg shadow">
             <ul>
                 <li title="Totaal fictief vermogen"><h3 class="text-2xl font-bold">{{ $user->portfolio_value }} USD</h3></li>

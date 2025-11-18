@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equity;
+use App\Models\User;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,13 @@ class TransactionController extends Controller
 {
     public function __construct(private TransactionService $transactionService)
     {
+    }
+
+    public function index(User $user)
+    {
+        $username = $user->username;
+        $transactionList = $this->transactionService->getUserTransactionList($user);
+        return view('transactions.index', compact('transactionList', 'username'));
     }
 
     public function create(Equity $equity, Request $request)
@@ -39,5 +47,5 @@ class TransactionController extends Controller
         $result = $this->transactionService->addTransaction($user, $equity, $quantity, $type);
 
         return back()->with($result['type'], $result['msg']);
-    }
+    } 
 }

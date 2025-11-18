@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('equity_id')->constrained()->onDelete('cascade');
             $table->enum('type', ['buy', 'sell']);
-            $table->decimal('quantity', 10, 4);
+            $table->integer('quantity');
             $table->decimal('price', 10, 2);
             $table->decimal('fee', 8, 2);
             $table->decimal('total', 12, 2);

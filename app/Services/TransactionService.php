@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Equity;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 
 class TransactionService
@@ -64,5 +65,14 @@ class TransactionService
                 'buy_price' => $avgPrice ?? ($transactionTotal / $transactionQuantity),
             ]
         ]);    
+    }
+
+    public function getUserTransactionList(User $user): Collection
+    {
+        return $user->transactions()
+            ->leftJoin('equities', 'transactions.equity_id', '=', 'equities.id')
+            ->leftJoin('companies', 'equities.company_id', '=', 'companies.id')
+            ->select('transactions.executed_at as date','transactions.quantity', 'transactions.price', 'transactions.total', 'transactions.type', 'companies.name as company_name')
+            ->orderBy('executed_at')->get();
     }
 }
