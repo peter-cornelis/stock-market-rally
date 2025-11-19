@@ -1,1 +1,1 @@
-<h2 class="relative text-3xl font-bold text-center max-w-3xl mx-auto text-black/70 mb-6">{{ $slot }}</h2>
+<h2 {{ $attributes->merge(['class' => 'relative text-3xl font-bold text-center max-w-3xl mx-auto text-black/70 mb-6']) }}>{{ $slot }}</h2>
