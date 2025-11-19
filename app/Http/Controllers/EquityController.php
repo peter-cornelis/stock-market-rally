@@ -14,6 +14,15 @@ class EquityController extends Controller
     {
     }
 
+    public function home()
+    {
+        $equities = Equity::query()
+            ->leftJoin('companies', 'companies.id', '=', 'equities.company_id')
+            ->select('symbol', 'companies.name')
+            ->get();
+        return view('home', compact('equities'));
+    }
+
     public function index()
     {
         $equities = Equity::with([
@@ -57,5 +66,4 @@ class EquityController extends Controller
 
         return back()->with($result['type'], $result['msg']);
     }
-
 }

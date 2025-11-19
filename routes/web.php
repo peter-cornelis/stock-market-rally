@@ -8,15 +8,16 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+//Route::get('/', function () {
+//    return view('home');
+//});
 
 Route::get('/portfolio', [PortfolioController::class, 'index'])->middleware('auth');
 Route::get('/ranking', [RankingController::class, 'index']);
 
 //Equity
 Route::get('/equities', [EquityController::class, 'index']);
+Route::get('/', [EquityController::class, 'home']);
 Route::middleware('auth')->group(function () {
     Route::get('/equities/create', [EquityController::class, 'create']);
     Route::post('/equities', [EquityController::class, 'store']);
