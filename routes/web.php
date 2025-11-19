@@ -10,29 +10,33 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StatisticController::class, 'index']);
-Route::get('/portfolio', [PortfolioController::class, 'index'])->middleware('auth');
-Route::get('/ranking', [RankingController::class, 'index']);
 
-//Equity
-Route::get('/equities', [EquityController::class, 'index']);
 Route::middleware('auth')->group(function () {
+    //Portfolio
+    Route::get('/portfolio', [PortfolioController::class, 'index']);
+
+    //Ranking
+    Route::get('/ranking', [RankingController::class, 'index']);
+
+    //Equity
+    Route::get('/equities', [EquityController::class, 'index']);
     Route::get('/equities/create', [EquityController::class, 'create']);
     Route::post('/equities', [EquityController::class, 'store']);
     Route::get('/equities/{equity}', [EquityController::class, 'show']);
-});
 
-//Transactions
-Route::middleware('auth')->group(function () {
+    //Transaction
     Route::get('/users/{user}/transactions', [TransactionController::class, 'index']);
     Route::get('/transactions/create/{equity}', [TransactionController::class, 'create']);
     Route::post('/transactions/{equity}', [TransactionController::class, 'store']);
+
+    // Auth
+    Route::delete('/logout', [SessionController::class, 'destroy']);
 });
 
-// Auth
 Route::middleware('guest')->group(function () {
+    // Auth
     Route::get('/register', [RegisteredUserController::class, 'create']);
     Route::post('/register', [RegisteredUserController::class, 'store']);
     Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store']);
 });
-Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
