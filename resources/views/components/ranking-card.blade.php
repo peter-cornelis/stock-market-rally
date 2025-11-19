@@ -1,7 +1,7 @@
 @props(['ranking'])
 
-<li class="border-b last:border-none border-black/10">
-    <a href="/users/{{ $ranking['user_id'] }}/transactions" class="flex justify-between px-4 py-2 hover:bg-black/2">
+<li class="border-b last:border-none border-black/10" title="Geef transacties weer">
+    <a href="/users/{{ $ranking['id'] }}/transactions" class="flex justify-between px-4 py-2 hover:bg-black/2">
         <div class="grid grid-flow-row">
             <h3 class="font-semibold">
                 <span class="text-black/60 py-2">{{ $ranking['ranking'] }}</span> | {{ $ranking['username'] }}</h3>

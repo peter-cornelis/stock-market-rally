@@ -72,7 +72,16 @@ class TransactionService
         return $user->transactions()
             ->leftJoin('equities', 'transactions.equity_id', '=', 'equities.id')
             ->leftJoin('companies', 'equities.company_id', '=', 'companies.id')
-            ->select('transactions.executed_at as date','transactions.quantity', 'transactions.price', 'transactions.total', 'transactions.type', 'companies.name as company_name')
+            ->leftJoin('exchanges', 'equities.exchange_id', '=', 'exchanges.id')
+            ->select(
+                'transactions.executed_at as date',
+                'transactions.quantity', 
+                'transactions.price', 
+                'transactions.total', 
+                'transactions.type', 
+                'companies.name as company_name', 
+                'exchanges.currency'
+                )
             ->orderBy('executed_at')->get();
     }
 }

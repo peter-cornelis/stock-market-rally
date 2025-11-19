@@ -1,1 +1,1 @@
-<h2 class="text-3xl font-bold text-center text-black/70 mb-6">{{ $slot }}</h2>
+<h2 class="relative text-3xl font-bold text-center max-w-3xl mx-auto text-black/70 mb-6">{{ $slot }}</h2>
