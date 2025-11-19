@@ -7,15 +7,22 @@ use App\Models\User;
 
 class StatisticService
 {
+    private string $currentYear;
+
+    public function __construct()
+    {
+        $this->currentYear = now()->year;
+    }
+
     private function getTotalTransactions(): int
     {
-        return Transaction::whereYear('executed_at', now()->year)
+        return Transaction::whereYear('executed_at', $this->currentYear)
             ->count();
     }
 
     private function getTotalActiveUsers(): int
     {
-        return Transaction::whereYear('executed_at', now()->year)
+        return Transaction::whereYear('executed_at',  $this->currentYear)
             ->distinct('user_id')
             ->count('user_id');
     }
