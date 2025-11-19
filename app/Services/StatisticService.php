@@ -34,8 +34,8 @@ class StatisticService
             ->first();
             
         return [
-            'username' => $firstUser->username,
-            'portfolio_value' => $firstUser->portfolio_value
+            'username' => $firstUser?->username ?? 'Onbekend',
+            'portfolio_value' => $firstUser?->portfolio_value ?? 0
         ];
     }
 
