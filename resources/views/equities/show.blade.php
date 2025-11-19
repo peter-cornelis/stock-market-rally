@@ -3,7 +3,10 @@
         {{ $equity->symbol }}
     </x-slot:title>
     <section class="max-w-4xl mx-auto mt-8 px-4">
-        <x-section-header>{{ $equity->company->name }}</x-section-header>
+        <x-section-header>
+            <x-previous-link/>
+            {{ $equity->company->name }}
+        </x-section-header>
 
         <div class="max-w-3xl mx-auto mt-10 px-6 py-4 bg-white rounded-lg shadow">
             <canvas id="myChart" height="100" data-chart-data="{{ json_encode($equity->charts) }}" data-symbol="{{ $equity->symbol }}"></canvas>

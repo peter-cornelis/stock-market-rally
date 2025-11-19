@@ -4,7 +4,7 @@
     </x-slot:title>
     <section class="max-w-4xl mx-auto mt-8 px-4">
         <x-section-header>
-            <a href="{{ url()->previous() }}" class="material-symbols-outlined absolute top-0.75 left-1 p-0.5 border border-black/20 rounded-2xl hover:bg-black/3" title="Terug naar vorige">chevron_left</a>
+            <x-previous-link/>
             {{ $username }}'s transacties
         </x-section-header>
         <ul class="max-w-3xl mx-auto mt-10 p-1 bg-white rounded-lg shadow">
