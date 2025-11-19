@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equity;
+use App\Models\Transaction;
+use App\Models\User;
 use App\Services\ChartService;
 use App\Services\EquityService;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +18,16 @@ class EquityController extends Controller
 
     public function home()
     {
-        $equities = Equity::query()
-            ->leftJoin('companies', 'companies.id', '=', 'equities.company_id')
-            ->select('symbol', 'companies.name')
-            ->get();
-        return view('home', compact('equities'));
+        $totalTransactions = Transaction::whereYear('executed_at', now()->year)
+            ->count();
+        $activeUsers = Transaction::whereYear('executed_at', now()->year)
+            ->distinct('user_id')
+            ->count('user_id');
+        $firstUser = User::query()
+            ->with(['equities.charts' => fn($q) => $q->latest('date')->limit(2)])
+            ->where('ranking', 1)
+            ->first();
+        return view('home', compact('totalTransactions', 'activeUsers', 'firstUser'));
     }
 
     public function index()
