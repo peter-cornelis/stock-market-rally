@@ -30,9 +30,9 @@
                         <x-nav-link href="/register" :active="request()->is('register')">Registreren</x-nav-link>
                     </ul>
                 @else
-                <ul class="flex gap-4 items-center">
+                <div class="flex gap-4 items-center">
                     <button form="logout-form" class="text-black/50 hover:text-black/70 cursor-pointer">Afmelden</button>
-                </ul>
+                </div>
                 <form action="/logout" method="POST" id="logout-form" class="hidden">
                     @csrf
                     @method('DELETE')
