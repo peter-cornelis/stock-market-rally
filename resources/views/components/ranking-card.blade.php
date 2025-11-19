@@ -5,7 +5,7 @@
         <div class="grid grid-flow-row">
             <h3 class="font-semibold">
                 <span class="text-black/60 py-2">{{ $ranking['ranking'] }}</span> | {{ $ranking['username'] }}</h3>
-            <span class="text-xs font-bold">{{ $ranking['transactions'] }} transacties</span>
+            <span class="text-xs font-bold">{{ $ranking['transactions_count'] }} transacties</span>
         </div>
         <div class="grid grid-flow-row text-right">
             <span>{{ $ranking['portfolio_value'] }} USD</span>

@@ -3,8 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RankingService
 {
@@ -18,18 +17,13 @@ class RankingService
         }
     }
 
-    public function getRankingList(): Collection
+    public function getRankingList(): LengthAwarePaginator
     {
-        $userRankings = User::all()->map(fn($user) => [
-            'user_id' => $user->id,
-            'username' => $user->username,
-            'portfolio_value' => $user->portfolio_value,
-            'portfolio_gain' => $user->portfolio_gain,
-            'portfolio_gain_percentage' => $user->portfolio_gain_percentage,
-            'transactions' => count($user->transactions),
-            'ranking' => $user->ranking,
-        ])->sortByDesc('portfolio_value')
-        ->values(); // Reset de index sleutels naar 1,2,3,etc na sortBy
+        $userRankings = User::query()
+        ->withCount('transactions')
+        ->with(['equities.charts' => fn($q) => $q->latest('date')->limit(2)])
+        ->orderBy('ranking', 'asc')
+        ->paginate(15);
 
         return $userRankings;
     }

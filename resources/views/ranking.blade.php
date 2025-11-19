@@ -9,5 +9,6 @@
             <x-ranking-card :$ranking/>
             @endforeach
         </ul>
+        {{ $rankings->links() }}
     </section>
 </x-layout>
