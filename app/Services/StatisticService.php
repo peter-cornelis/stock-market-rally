@@ -23,7 +23,6 @@ class StatisticService
     private function getHighestRankingUser(): array
     {
         $firstUser = User::query()
-            ->with(['equities.charts' => fn($q) => $q->latest('date')->limit(2)])
             ->where('ranking', 1)
             ->first();
             
