@@ -14,6 +14,6 @@ class RankingController extends Controller
     {
         $rankings = $this->rankingService->getRankingList();
 
-        return view('ranking', compact('rankings'));
+        return view('ranking', ['rankings' => $rankings]);
     }
 }

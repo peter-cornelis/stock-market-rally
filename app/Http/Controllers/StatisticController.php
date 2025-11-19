@@ -13,6 +13,7 @@ class StatisticController extends Controller
     public function index()
     {
         $statistics = $this->statisticService->getAll();
-        return view('home', compact('statistics'));
+
+        return view('home', ['statistics' => $statistics]);
     }
 }
