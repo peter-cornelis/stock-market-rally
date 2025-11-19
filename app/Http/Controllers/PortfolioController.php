@@ -14,7 +14,8 @@ class PortfolioController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+        $user->setRelation('equities', $user->equities->sortByDesc('value'));
+
         return view('portfolio', compact('user'));
     }
 }
