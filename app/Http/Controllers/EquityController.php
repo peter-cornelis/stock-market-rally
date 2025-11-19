@@ -61,6 +61,8 @@ class EquityController extends Controller
 
     public function store()
     {
+        if (!Auth::user()->admin) abort(403);
+
         $validated = request()->validate([
             'symbol' => ['required', 'string', 'min:2', 'max:10']
         ],[
