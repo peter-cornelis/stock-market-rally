@@ -16,20 +16,6 @@ class EquityController extends Controller
     {
     }
 
-    public function home()
-    {
-        $totalTransactions = Transaction::whereYear('executed_at', now()->year)
-            ->count();
-        $activeUsers = Transaction::whereYear('executed_at', now()->year)
-            ->distinct('user_id')
-            ->count('user_id');
-        $firstUser = User::query()
-            ->with(['equities.charts' => fn($q) => $q->latest('date')->limit(2)])
-            ->where('ranking', 1)
-            ->first();
-        return view('home', compact('totalTransactions', 'activeUsers', 'firstUser'));
-    }
-
     public function index()
     {
         $equities = Equity::with([
