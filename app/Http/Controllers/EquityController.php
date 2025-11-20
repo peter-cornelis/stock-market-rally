@@ -37,15 +37,15 @@ class EquityController extends Controller
         return view('equities.show', ['equity' => $equity, 'currentPeriod' => $period]);
     }
 
-    public function search()
+    public function search(Request $request)
     {
         $equities = Equity::query()
             ->with([
             'company', 
             'exchange',
             'charts' => fn($query) => $this->chartService->latestTwo($query)
-        ])->whereHas('company', function($query) {
-            $query->where('name', 'like', '%'.request('q').'%');
+        ])->whereHas('company', function($query) use ($request) {
+            $query->where('name', 'like', '%'.$request['searchQuery'].'%');
         })->orderBy('symbol')->paginate(5);
         
         return view('equities.index', ['equities' => $equities]);

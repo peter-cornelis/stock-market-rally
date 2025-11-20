@@ -31,7 +31,7 @@ class RankingService
     {
         $userRankings = User::query()
         ->withCount('transactions')
-        ->where('username', 'like', '%'.request('q').'%')
+        ->where('username', 'like', '%'.$query.'%')
         ->orderBy('ranking', 'asc')
         ->paginate(15);
 

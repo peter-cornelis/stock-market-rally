@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\RankingService;
+use Illuminate\Http\Request;
 
 class RankingController extends Controller
 {
@@ -17,9 +18,17 @@ class RankingController extends Controller
         return view('ranking', ['rankings' => $rankings]);
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        $rankings = $this->rankingService->getRankingListByUsername(request('q'));
+        $request->validate([
+            'searchQuery' => ['required', 'string', 'min:2']
+        ],[
+            'searchQuery.required' => 'Symbool vereist.',
+            'searchQuery.string' => 'Onbekende invoer',
+            'searchQuery.min' => 'Minstens 2 karakters vereist.',
+        ]);
+
+        $rankings = $this->rankingService->getRankingListByUsername($request['searchQuery']);
         
         return view('ranking', ['rankings' => $rankings]);
     }
