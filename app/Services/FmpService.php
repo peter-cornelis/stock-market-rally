@@ -23,15 +23,9 @@ class FmpService
             'apikey' => $this->apiKey
         ]);
         
-        if(!$response->successful()) {
+        if(!$response->successful() || empty($response->json())) {
             throw ValidationException::withMessages([
-                'symbol' => "Aandeel {$symbol} niet gevonden of API fout."
-            ]);
-        }
-
-        if (empty($response->json())) {
-            throw ValidationException::withMessages([
-                'symbol' => "Geen bedrijfsgegevens gevonden voor {$symbol}."
+                'symbol' => "Geen bedrijfsgegevens voor {$symbol} beschikbaar of API fout."
             ]);
         }
 
@@ -45,15 +39,9 @@ class FmpService
             'apikey' => $this->apiKey
         ]);
 
-        if(!$response->successful()) {
+        if(!$response->successful() || empty($response->json())) {
             throw ValidationException::withMessages([
-                'symbol' => "Aandeel {$symbol} niet gevonden of API fout."
-            ]);
-        }
-
-        if (empty($response->json())) {
-            throw ValidationException::withMessages([
-                'symbol' => "Geen financiële gegevens gevonden voor {$symbol}."
+                'symbol' => "Geen financiele ratios voor {$symbol} beschikbaar of API fout."
             ]);
         }
 
@@ -69,15 +57,9 @@ class FmpService
             'apikey' => $this->apiKey
         ]);
 
-        if(!$response->successful()) {
+        if(!$response->successful() || empty($response->json())) {
             throw ValidationException::withMessages([
-                'symbol' => "Aandeel {$symbol} niet gevonden of API fout."
-            ]);
-        }
-
-        if (empty($response->json())) {
-            throw ValidationException::withMessages([
-                'symbol' => "Geen historische gegevens gevonden voor {$symbol}."
+                'symbol' => "Geen historische data voor {$symbol} beschikbaar of API fout."
             ]);
         }
 

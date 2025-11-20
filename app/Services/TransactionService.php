@@ -19,10 +19,22 @@ class TransactionService
         $fee = round(max($total * 0.0025, 2.5), 2);
         $total = $type === "buy" ? $total + $fee : $total - $fee;
 
-        if($user->balance < $total) {
+        if($type === "buy" && $user->balance < $total) {
             throw ValidationException::withMessages([
                 'quantity' => 'Saldo ontoereikend.'
             ]);
+        }
+
+        if($type === "sell") {
+            $userEquity = $user->equities()
+                ->where('equity_id', $equity->id)
+                ->first();
+                
+            if(!$userEquity || $userEquity->pivot->quantity < $quantity) {
+                throw ValidationException::withMessages([
+                    'quantity' => 'Onvoldoende aandelen in bezit.'
+                ]);
+            }
         }
 
         $this->updateBalance($user, $type, $total);
@@ -34,7 +46,7 @@ class TransactionService
             'quantity' => $quantity,
             'price' => $equity->current_price,
             'fee' => $fee,
-            'total' => $total,
+            'total' => $total
         ]);
 
         return ['type' => 'status', 'msg' => ($type == 'buy' ? "Aankoop" : "Verkoop") . " succesvol uitgevoerd."];
@@ -50,9 +62,9 @@ class TransactionService
     {
         $equity = $user->equities()->where('equity_id', $equityId)->first();
         if($equity) {
-            $quantity = ($transactionType == 'buy' ? $transactionQuantity + $equity->quantity : $transactionQuantity - $equity->quantity);
+            $quantity = ($transactionType == 'buy' ? $equity->pivot->quantity + $transactionQuantity : $equity->pivot->quantity - $transactionQuantity);
 
-            $avgPrice = (float) ($transactionType == 'buy' ? (($equity->quantity * $equity->buy_price) + $transactionTotal) / $quantity : $equity->buy_price);
+            $avgPrice = (float) ($transactionType == 'buy' ? (($equity->pivot->quantity * $equity->pivot->buy_price) + $transactionTotal) / $quantity : $equity->pivot->buy_price);
             if ($quantity == 0) {
                 $user->equities()->detach($equityId);
                 return;
@@ -74,7 +86,7 @@ class TransactionService
             ->leftJoin('companies', 'equities.company_id', '=', 'companies.id')
             ->leftJoin('exchanges', 'equities.exchange_id', '=', 'exchanges.id')
             ->select(
-                'transactions.executed_at as date',
+                'transactions.created_at as date',
                 'transactions.quantity', 
                 'transactions.price', 
                 'transactions.total', 
@@ -82,6 +94,7 @@ class TransactionService
                 'companies.name as company_name', 
                 'exchanges.currency'
                 )
-            ->orderBy('executed_at')->get();
+            ->orderBy('transactions.created_at')
+            ->get();
     }
 }

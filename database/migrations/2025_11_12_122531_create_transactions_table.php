@@ -20,7 +20,6 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->decimal('fee', 8, 2);
             $table->decimal('total', 12, 2);
-            $table->timestamp('executed_at')->default(now());
             $table->timestamps();
         });
     }
