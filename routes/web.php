@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
 
     //Equity
     Route::get('/equities', [EquityController::class, 'index']);
+    Route::post('/equities/search', [EquityController::class, 'search']);
     Route::get('/equities/create', [EquityController::class, 'create']);
     Route::post('/equities', [EquityController::class, 'store']);
     Route::get('/equities/{equity}', [EquityController::class, 'show']);

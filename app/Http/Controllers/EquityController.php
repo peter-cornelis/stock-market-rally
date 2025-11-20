@@ -37,6 +37,20 @@ class EquityController extends Controller
         return view('equities.show', ['equity' => $equity, 'currentPeriod' => $period]);
     }
 
+    public function search()
+    {
+        $equities = Equity::query()
+            ->with([
+            'company', 
+            'exchange',
+            'charts' => fn($query) => $this->chartService->latestTwo($query)
+        ])->whereHas('company', function($query) {
+            $query->where('name', 'like', '%'.request('q').'%');
+        })->orderBy('symbol')->paginate(5);
+        
+        return view('equities.index', ['equities' => $equities]);
+    }
+
     public function create()
     {
         if (!Auth::user()->admin) abort(403);

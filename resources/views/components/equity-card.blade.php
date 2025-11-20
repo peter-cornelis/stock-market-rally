@@ -1,6 +1,6 @@
 @props(['equity'])
 
-<li class="mt-8 p-1 bg-white rounded-lg">
+<li class="mt-4 p-1 first:mt-8 bg-white rounded-lg shadow">
     <a href="/equities/{{ $equity->id }}" class="grid grid-cols-[auto_1fr_auto] gap-6 max-w-4xl py-2 px-4 rounded-lg hover:bg-black/2">
         <img src="{{ $equity->company->image }}" alt="" class="w-16 h-16 p-1 my-auto rounded shadow bg-black/80"/>
         <div>

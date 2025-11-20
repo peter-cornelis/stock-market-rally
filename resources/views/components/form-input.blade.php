@@ -1,1 +1,1 @@
-<input {{ $attributes->merge(['class' => 'block w-full rounded border border-black/20 px-3 py-2']) }}>
+<input {{ $attributes->merge(['class' => 'block bg-white w-full rounded border border-black/20 px-3 py-2']) }}>
