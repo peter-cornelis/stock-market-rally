@@ -46,7 +46,7 @@
         <main class="px-8">
             {{ $slot }}
         </main>
-        <footer class="text-xs text-center pb-2 pt-6">
+        <footer class="text-sm text-center pb-2 pt-6">
             <span class="text-black/40 font-bold py-1">Cornelis Peter {{ now()->year }}</span>
         </footer>
     </body>
