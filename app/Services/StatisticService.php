@@ -16,13 +16,13 @@ class StatisticService
 
     private function getTotalTransactions(): int
     {
-        return Transaction::whereYear('executed_at', $this->currentYear)
+        return Transaction::whereYear('created_at', $this->currentYear)
             ->count();
     }
 
     private function getTotalActiveUsers(): int
     {
-        return Transaction::whereYear('executed_at',  $this->currentYear)
+        return Transaction::whereYear('created_at',  $this->currentYear)
             ->distinct('user_id')
             ->count('user_id');
     }

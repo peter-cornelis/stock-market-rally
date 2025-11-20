@@ -16,11 +16,7 @@ class EquityController extends Controller
 
     public function index()
     {
-        $equities = Equity::with([
-            'company', 
-            'exchange',
-            'charts' => fn($query) => $this->chartService->latestTwo($query)
-        ])->orderBy('symbol')->paginate(5);
+        $equities = $this->equityService->getAll()->paginate(5);
         
         return view('equities.index', ['equities' => $equities]);
     }
@@ -29,10 +25,7 @@ class EquityController extends Controller
     {
         $period = $request->get('period', '1Y');
 
-        $equity->load([
-            'financialRatio',
-            'charts' => fn($query) => $this->chartService->period($query, $period)
-        ]);
+        $equity = $this->equityService->getWithSelectedChartPeriod($equity, $period);
 
         return view('equities.show', ['equity' => $equity, 'currentPeriod' => $period]);
     }
@@ -47,14 +40,7 @@ class EquityController extends Controller
             'searchQuery.min' => 'Minstens 2 karakters vereist.',
         ]);
         
-        $equities = Equity::query()
-            ->with([
-            'company', 
-            'exchange',
-            'charts' => fn($query) => $this->chartService->latestTwo($query)
-        ])->whereHas('company', function($query) use ($request) {
-            $query->where('name', 'like', '%'.$request['searchQuery'].'%');
-        })->orderBy('symbol')->paginate(5);
+        $equities = $this->equityService->getByCompanyName($request['searchQuery'])->paginate(5);
         
         return view('equities.index', ['equities' => $equities]);
     }

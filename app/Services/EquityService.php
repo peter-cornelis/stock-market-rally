@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Equity;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 
 class EquityService
@@ -10,8 +11,37 @@ class EquityService
     /**
      * Create a new class instance.
      */
-    public function __construct(private FmpService $fmpService, private ObjectBuilder $objectBuilder)
+    public function __construct(private FmpService $fmpService, private ObjectBuilder $objectBuilder, private ChartService $chartService)
     {
+    }
+
+    public function getAll(): Builder
+    {
+        return Equity::with([
+            'company', 
+            'exchange',
+            'charts' => fn($query) => $this->chartService->latestTwo($query)
+        ])->orderBy('symbol');
+    }
+
+    public function getByCompanyName(string $searchQuery): Builder
+    {
+       return Equity::query()
+            ->with([
+            'company', 
+            'exchange',
+            'charts' => fn($query) => $this->chartService->latestTwo($query)
+        ])->whereHas('company', function($query) use ($searchQuery) {
+            $query->where('name', 'like', '%'.$searchQuery.'%');
+        })->orderBy('symbol');
+    }
+
+    public function getWithSelectedChartPeriod(Equity $equity, string $period): Equity
+    {
+        return $equity->load([
+            'financialRatio',
+            'charts' => fn($query) => $this->chartService->period($query, $period)
+        ]);
     }
 
     public function addEquity(string $symbol): array
