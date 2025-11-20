@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         
     </head>
-    <body class="bg-zinc-100 min-w-3xl">
+    <body class="grid grid-rows-[auto_1fr_auto] min-h-screen bg-zinc-100 min-w-3xl">
         <header class="relative bg-stone-50 border-b border-black/20 py-6 px-8">
             <nav class="flex justify-between items-center">
                 <ul class="flex gap-4 items-center">
@@ -46,8 +46,8 @@
         <main class="px-8">
             {{ $slot }}
         </main>
-        <footer>
-
+        <footer class="text-xs text-center pb-2 pt-6">
+            <span class="text-black/40 font-bold py-1">Cornelis Peter {{ now()->year }}</span>
         </footer>
     </body>
 </html>
