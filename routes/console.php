@@ -1,13 +1,12 @@
 <?php
 
-use App\Services\EquityService;
-use App\Services\RankingService;
+use App\Jobs\UpdateAllEquityChartsJob;
+use App\Jobs\UpdateRankingListJob;
 use Illuminate\Support\Facades\Schedule;
 
-Schedule::call(function () {
-    app(EquityService::class)->updateAllEquityCharts();
-})->dailyAt('05:00');
+Schedule::job(new UpdateAllEquityChartsJob())
+    ->weekdays()
+    ->at('23:00');
 
-Schedule::call(function () {
-    app(RankingService::class)->updateRankingList();
-})->hourly();
+Schedule::job(new UpdateRankingListJob())
+    ->hourly();
