@@ -21,7 +21,17 @@ class RankingService
     {
         $userRankings = User::query()
         ->withCount('transactions')
-        ->with(['equities.charts' => fn($q) => $q->latest('date')->limit(2)])
+        ->orderBy('ranking', 'asc')
+        ->paginate(15);
+
+        return $userRankings;
+    }
+
+    public function getRankingListByUsername(string $query): LengthAwarePaginator
+    {
+        $userRankings = User::query()
+        ->withCount('transactions')
+        ->where('username', 'like', '%'.request('q').'%')
         ->orderBy('ranking', 'asc')
         ->paginate(15);
 

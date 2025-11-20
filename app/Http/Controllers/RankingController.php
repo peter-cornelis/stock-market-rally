@@ -16,4 +16,11 @@ class RankingController extends Controller
 
         return view('ranking', ['rankings' => $rankings]);
     }
+
+    public function search()
+    {
+        $rankings = $this->rankingService->getRankingListByUsername(request('q'));
+        
+        return view('ranking', ['rankings' => $rankings]);
+    }
 }

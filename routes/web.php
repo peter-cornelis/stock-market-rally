@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
 
     //Ranking
     Route::get('/ranking', [RankingController::class, 'index']);
+    Route::post('/ranking/search', [RankingController::class, 'search']);
 
     //Equity
     Route::get('/equities', [EquityController::class, 'index']);
