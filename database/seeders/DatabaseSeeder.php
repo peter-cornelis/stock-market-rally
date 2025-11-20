@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Equity;
 use App\Models\User;
+use App\Services\EquityService;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -30,5 +30,11 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
             'admin' => true
         ]);
+
+        $eqService = app(EquityService::class);
+        $symbols = ['NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL'];
+        foreach($symbols as $symbol) {
+            $eqService->addEquity($symbol);
+        }
     }
 }
