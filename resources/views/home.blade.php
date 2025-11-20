@@ -44,7 +44,7 @@
                 <li title="eerste speler in ranking" class="text-center py-4 min-w-38 max-w-42 col-span-2 md:col-span-1 mx-auto bg-yellow-500 border border-black/20 rounded shadow">
                     <h3 class="text-lg font-semibold">#1</h3>
                     <span class="block text-xl px-2 wrap-break-word mt-2 mb-1">{{ $statistics['highestRankedUsername'] }}</span>
-                    <span class="inline-block font-semibold px-2 wrap-break-word bg-white/15 border border-white/60 mx-2 rounded-xl">{{ $statistics['highestRankedPortfolioValue'] }}</span>
+                    <span class="inline-block font-semibold px-2 wrap-break-word bg-white/15 border border-white/60 mx-2 rounded-xl">{{ number_format($statistics['highestRankedPortfolioValue'], 2, ',', '.') }}</span>
                     <span class="block text-xs px-2 wrap-break-word mb-4">USD</span>
                 </li>
             </ul>
