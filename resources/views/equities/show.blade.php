@@ -9,6 +9,10 @@
         </x-section-header>
 
         <div class="max-w-3xl mx-auto mt-10 px-6 py-4 bg-white rounded-lg shadow">
+            <div class="flex mb-4 justify-center">
+                <span class="font-semibold text-2xl" title="laatste koers">{{ number_format($equity->current_price, 2, ',', '.') }} {{ $equity->exchange->currency }}</span>
+                <span class="inline-block {{ $equity->daily_change >= 0 ? 'bg-notice' : 'bg-error' }} text-white font-semibold rounded py-px px-2 ml-2 my-auto shadow">{{ $equity->daily_change_percentage }} %</span>
+            </div>
             <canvas id="myChart" height="100" data-chart-data="{{ json_encode($equity->charts) }}" data-symbol="{{ $equity->symbol }}"></canvas>
             @auth
             <nav class="flex gap-2 mt-4 justify-center">

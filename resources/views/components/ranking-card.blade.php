@@ -8,8 +8,8 @@
             <span class="text-xs font-bold">{{ $ranking['transactions_count'] }} transacties</span>
         </div>
         <div class="grid grid-flow-row text-right">
-            <span>{{ $ranking['portfolio_value'] }} USD</span>
-            <p class="text-xs">{{ $ranking['portfolio_gain'] }} USD <span class="{{ $ranking['portfolio_gain'] >= 0 ? 'bg-notice' : 'bg-error' }} text-white font-semibold rounded py-px px-1 shadow">{{ $ranking['portfolio_gain_percentage'] }} %</span></p>
+            <span>{{ number_format($ranking['portfolio_value'], 2, ',', '.') }} USD</span>
+            <p class="text-xs">{{ number_format($ranking['portfolio_gain'], 2, ',', '.') }} USD <span class="{{ $ranking['portfolio_gain'] >= 0 ? 'bg-notice' : 'bg-error' }} text-white font-semibold rounded py-px px-1 shadow">{{ $ranking['portfolio_gain_percentage'] }} %</span></p>
         </div>
     </a>
 </li>

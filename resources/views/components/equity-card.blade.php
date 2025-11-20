@@ -11,7 +11,7 @@
             </p>
         </div>
         <div class="grid grid-flow-row text-right w-fit h-full">
-            <span class="font-semibold text-lg" title="laatste koers">{{ $equity->current_price }} {{ $equity->exchange->currency }}</span>
+            <span class="font-semibold text-lg" title="laatste koers">{{ number_format($equity->current_price, 2, ',', '.') }} {{ $equity->exchange->currency }}</span>
             <span class="font-semibold {{ $equity->daily_change > 0 ? 'text-notice' : 'text-error' }}">{{ $equity->daily_change_percentage }}%</span>
         </div>
     </a>

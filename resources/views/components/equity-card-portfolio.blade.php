@@ -5,8 +5,8 @@
             <span class="text-xs font-bold">{{ $equity->quantity }} aandelen</span>
         </div>
         <div class="grid grid-flow-row text-right">
-            <span>{{ $equity->value }} USD</span>
-            <p class="text-xs">{{ $equity->value_change }} USD <span class="{{ $equity->value_change >= 0 ? 'bg-notice' : 'bg-error' }} text-white font-semibold rounded py-px px-1 shadow">{{ $equity->value_change_percentage }} %</span></p>
+            <span>{{ number_format($equity->value, 2, ',', '.') }} USD</span>
+            <p class="text-xs">{{ number_format($equity->value_change, 2, ',', '.') }} USD <span class="{{ $equity->value_change >= 0 ? 'bg-notice' : 'bg-error' }} text-white font-semibold rounded py-px px-1 shadow">{{ $equity->value_change_percentage }} %</span></p>
         </div>
     </a>
 </li>
