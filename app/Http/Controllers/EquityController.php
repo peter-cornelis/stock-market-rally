@@ -39,6 +39,14 @@ class EquityController extends Controller
 
     public function search(Request $request)
     {
+        $request->validate([
+            'searchQuery' => ['required', 'string', 'min:2']
+        ],[
+            'searchQuery.required' => 'Symbool vereist.',
+            'searchQuery.string' => 'Onbekende invoer',
+            'searchQuery.min' => 'Minstens 2 karakters vereist.',
+        ]);
+        
         $equities = Equity::query()
             ->with([
             'company', 
