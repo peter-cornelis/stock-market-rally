@@ -35,16 +35,16 @@
         <ul class="grid grid-cols-2 md:grid-cols-3 gap-18 text-white mx-auto">
                 <li title="aantal transacties" class="text-center py-4 min-w-38 bg-blueFin border border-black/20 rounded shadow">
                     <h3 class="text-lg font-semibold">Actieve spelers</h3>
-                    <span class="flex w-16 h-16 text-3xl font-bold bg-black/3 justify-center items-center mx-auto my-4 rounded-full border border-black/10">{{ $statistics['totalActiveUsers'] }}</span>
+                    <span class="flex w-16 h-16 text-3xl font-bold bg-black/15 justify-center items-center mx-auto my-4 rounded-full border border-black/10">{{ $statistics['totalActiveUsers'] }}</span>
                 </li>
                 <li title="aantal transacties" class="text-center py-4 min-w-38 bg-notice border border-black/20 rounded shadow">
                     <h3 class="text-lg font-semibold">Transacties</h3>
-                    <span class="flex w-16 h-16 text-3xl font-bold bg-black/3 justify-center items-center mx-auto my-4 rounded-full border border-black/10">{{ $statistics['totalTransactions'] }}</span>
+                    <span class="flex w-16 h-16 text-3xl font-bold bg-black/15 justify-center items-center mx-auto my-4 rounded-full border border-black/10">{{ $statistics['totalTransactions'] }}</span>
                 </li>
                 <li title="eerste speler in ranking" class="text-center py-4 min-w-38 max-w-42 bg-yellow-500 border border-black/20 rounded shadow">
                     <h3 class="text-lg font-semibold">#1</h3>
                     <span class="block text-xl px-2 wrap-break-word mt-2 mb-1">{{ $statistics['highestRankedUsername'] }}</span>
-                    <span class="inline-block font-semibold px-2 wrap-break-word bg-white/7 border border-white/40 mx-2 rounded-xl">{{ $statistics['highestRankedPortfolioValue'] }}</span>
+                    <span class="inline-block font-semibold px-2 wrap-break-word bg-white/15 border border-white/60 mx-2 rounded-xl">{{ $statistics['highestRankedPortfolioValue'] }}</span>
                     <span class="block text-xs px-2 wrap-break-word mb-4">USD</span>
                 </li>
             </ul>
