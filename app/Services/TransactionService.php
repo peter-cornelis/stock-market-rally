@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Equity;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class TransactionService
@@ -15,41 +16,43 @@ class TransactionService
 
     public function addTransaction(User $user, Equity $equity, int $quantity, string $type): array
     {
-        $total = (float) $quantity * $equity->current_price;
-        $fee = round(max($total * 0.0025, 2.5), 2);
-        $total = $type === "buy" ? $total + $fee : $total - $fee;
+        return DB::transaction(function() use ($user, $equity, $quantity, $type) {
+            $total = (float) $quantity * $equity->current_price;
+            $fee = round(max($total * 0.0025, 2.5), 2);
+            $total = $type === "buy" ? $total + $fee : $total - $fee;
 
-        if($type === "buy" && $user->balance < $total) {
-            throw ValidationException::withMessages([
-                'quantity' => 'Saldo ontoereikend.'
-            ]);
-        }
-
-        if($type === "sell") {
-            $userEquity = $user->equities()
-                ->where('equity_id', $equity->id)
-                ->first();
-                
-            if(!$userEquity || $userEquity->pivot->quantity < $quantity) {
+            if($type === "buy" && $user->balance < $total) {
                 throw ValidationException::withMessages([
-                    'quantity' => 'Onvoldoende aandelen in bezit.'
+                    'quantity' => 'Saldo ontoereikend.'
                 ]);
             }
-        }
 
-        $this->updateBalance($user, $type, $total);
-        $this->updatePortfolio($user, $equity->id, $type, $quantity, $total);
+            if($type === "sell") {
+                $userEquity = $user->equities()
+                    ->where('equity_id', $equity->id)
+                    ->first();
+                    
+                if(!$userEquity || $userEquity->pivot->quantity < $quantity) {
+                    throw ValidationException::withMessages([
+                        'quantity' => 'Onvoldoende aandelen in bezit.'
+                    ]);
+                }
+            }
 
-        $user->transactions()->create([
-            'equity_id' => $equity->id,
-            'type' => $type,
-            'quantity' => $quantity,
-            'price' => $equity->current_price,
-            'fee' => $fee,
-            'total' => $total
-        ]);
+            $this->updateBalance($user, $type, $total);
+            $this->updatePortfolio($user, $equity->id, $type, $quantity, $total);
 
-        return ['type' => 'status', 'msg' => ($type == 'buy' ? "Aankoop" : "Verkoop") . " succesvol uitgevoerd."];
+            $user->transactions()->create([
+                'equity_id' => $equity->id,
+                'type' => $type,
+                'quantity' => $quantity,
+                'price' => $equity->current_price,
+                'fee' => $fee,
+                'total' => $total
+            ]);
+
+            return ['type' => 'status', 'msg' => ($type == 'buy' ? "Aankoop" : "Verkoop") . " succesvol uitgevoerd."];
+        });
     }
 
     private function updateBalance(User $user, string $transactionType, float $transactionTotal): void
