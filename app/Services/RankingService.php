@@ -20,9 +20,9 @@ class RankingService
     public function getRankingList(): LengthAwarePaginator
     {
         $userRankings = User::query()
-        ->withCount('transactions')
-        ->orderBy('ranking', 'asc')
-        ->paginate(15);
+            ->withCount('transactions')
+            ->orderBy('ranking', 'asc')
+            ->paginate(15);
 
         return $userRankings;
     }
@@ -30,10 +30,10 @@ class RankingService
     public function getRankingListByUsername(string $query): LengthAwarePaginator
     {
         $userRankings = User::query()
-        ->withCount('transactions')
-        ->where('username', 'like', '%'.$query.'%')
-        ->orderBy('ranking', 'asc')
-        ->paginate(15);
+            ->withCount('transactions')
+            ->where('username', 'like', '%'.$query.'%')
+            ->orderBy('ranking', 'asc')
+            ->paginate(15);
 
         return $userRankings;
     }

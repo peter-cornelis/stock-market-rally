@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class StatisticService
 {
@@ -41,13 +42,15 @@ class StatisticService
 
     public function getAll(): array
     {
-        $highestRanked = $this->getHighestRankingUser();
+        return Cache::remember('statistics', now()->addMinutes(30), function() {
+            $highestRanked = $this->getHighestRankingUser();
 
-        return [
-            'totalTransactions' => $this->getTotalTransactions(),
-            'totalActiveUsers' => $this->getTotalActiveUsers(),
-            'highestRankedUsername' => $highestRanked['username'],
-            'highestRankedPortfolioValue' => $highestRanked['portfolio_value']
-        ];
+            return [
+                'totalTransactions' => $this->getTotalTransactions(),
+                'totalActiveUsers' => $this->getTotalActiveUsers(),
+                'highestRankedUsername' => $highestRanked['username'],
+                'highestRankedPortfolioValue' => $highestRanked['portfolio_value']
+            ];
+        });
     }
 }
