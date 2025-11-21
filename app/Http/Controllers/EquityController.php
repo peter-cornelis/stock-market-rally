@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEquityRequest;
 use App\Models\Equity;
 use App\Services\ChartService;
 use App\Services\EquityService;
@@ -51,19 +52,13 @@ class EquityController extends Controller
         return view('equities.create');
     }
 
-    public function store()
+    public function store(StoreEquityRequest $request)
     {
         if (!Auth::user()->admin) abort(403);
 
-        $validated = request()->validate([
-            'symbol' => ['required', 'string', 'min:2', 'max:10']
-        ],[
-            'symbol.required' => 'Symbool vereist.',
-            'symbol.min' => 'Minstens 2 karakters vereist.',
-            'symbol.max' => 'Maximaal 10 karakters toegestaan.'
-        ]);
+        $attributes = $request->validated();
 
-        $result = $this->equityService->addEquity($validated['symbol']);
+        $result = $this->equityService->addEquity($attributes['symbol']);
 
         return back()->with($result['type'], $result['msg']);
     }
