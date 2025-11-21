@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('volume');
             $table->timestamps();
             
+            $table->index(['equity_id', 'date']);
             $table->unique(['equity_id', 'date']);
         });
     }

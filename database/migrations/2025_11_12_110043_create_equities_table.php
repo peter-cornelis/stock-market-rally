@@ -22,8 +22,8 @@ return new class extends Migration
             $table->decimal('lastDividend', 5, 3)->default(0);
             $table->timestamps();
 
+            $table->index('symbol');
             $table->unique(['exchange_id', 'symbol']);
-
         });
     }
 
