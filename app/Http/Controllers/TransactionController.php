@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTransactionRequest;
 use App\Models\Equity;
 use App\Models\User;
 use App\Services\TransactionService;
@@ -28,20 +29,12 @@ class TransactionController extends Controller
         return view('transactions.create', ['equity' => $equity, 'type' => $type]);
     }
 
-    public function store(Equity $equity)
+    public function store(Equity $equity, StoreTransactionRequest $request)
     {
-        $validated = request()->validate([
-        'quantity' => ['required', 'integer', 'min:1'],
-        'type' => ['required', 'in:buy,sell']
-        ], [
-            'quantity.required' => 'Aantal vereist.',
-            'quantity.integer' => 'Aantal dient een positief natuurlijk getal te zijn.',
-            'quantity.min' => 'Aantal van 1 of hoger vereist.',
-            'type' => 'Transactietype onbekend.',
-        ]);
+        $attributes = $request->validate();
         
-        $quantity = (int) $validated['quantity'];
-        $type = (string) $validated['type'];
+        $quantity = (int) $attributes['quantity'];
+        $type = (string) $attributes['type'];
         $user = Auth::user();
 
         $result = $this->transactionService->addTransaction($user, $equity, $quantity, $type);

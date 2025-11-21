@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreRegisteredUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +13,7 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
     
-    public function store(StoreUserRequest $request)
+    public function store(StoreRegisteredUserRequest $request)
     {
         $attributes = $request->validated();
 

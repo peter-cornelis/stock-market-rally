@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchEquityRequest;
 use App\Http\Requests\StoreEquityRequest;
 use App\Models\Equity;
 use App\Services\ChartService;
@@ -31,17 +32,11 @@ class EquityController extends Controller
         return view('equities.show', ['equity' => $equity, 'currentPeriod' => $period]);
     }
 
-    public function search(Request $request)
+    public function search(SearchEquityRequest $request)
     {
-        $request->validate([
-            'searchQuery' => ['required', 'string', 'min:2']
-        ],[
-            'searchQuery.required' => 'Symbool vereist.',
-            'searchQuery.string' => 'Onbekende invoer',
-            'searchQuery.min' => 'Minstens 2 karakters vereist.',
-        ]);
+        $$attributes = $request->validated();
         
-        $equities = $this->equityService->getByCompanyName($request['searchQuery'])->paginate(5);
+        $equities = $this->equityService->getByCompanyName($attributes['searchQuery'])->paginate(5);
         
         return view('equities.index', ['equities' => $equities]);
     }

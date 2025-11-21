@@ -20,9 +20,9 @@ class RankingController extends Controller
 
     public function search(SearchRankingRequest $request)
     {
-        $searchQuery = $request->validated();
+        $attributes =$request->validated();
 
-        $rankings = $this->rankingService->getRankingListByUsername($searchQuery);
+        $rankings = $this->rankingService->getRankingListByUsername($attributes['searchQuery']);
         
         return view('ranking', ['rankings' => $rankings]);
     }
