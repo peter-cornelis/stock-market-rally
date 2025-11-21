@@ -31,9 +31,9 @@ class EquityService
             'company', 
             'exchange',
             'charts' => fn($query) => $this->chartService->latestTwo($query)
-        ])->whereHas('company', function($query) use ($searchQuery) {
-            $query->where('name', 'like', '%'.$searchQuery.'%');
-        })->orderBy('symbol');
+        ])->whereHas('company', fn($query) => 
+            $query->where('name', 'like', '%'.$searchQuery.'%')
+        )->orderBy('symbol');
     }
 
     public function getWithSelectedChartPeriod(Equity $equity, string $period): Equity
