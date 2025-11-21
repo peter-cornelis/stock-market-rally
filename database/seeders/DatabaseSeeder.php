@@ -16,12 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        /*
-        $this->call([
-            NvidiaSeeder::class,
-        ]);
-        */
-
         User::factory()->create([
             'first_name' => 'Test',
             'last_name' => 'User',
@@ -33,10 +27,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->count(100)->create();
 
-        $eqService = app(EquityService::class);
-        $symbols = ['NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL'];
-        foreach($symbols as $symbol) {
-            $eqService->addEquity($symbol);
-        }
+        $symbols = [
+            'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
+            'AMZN', 'META', 'SHOP', 'PLTR', 'INTC', 
+            'SNAP', 'SQ', 'NFLX', 'ADBE', 'ROKU'
+        ];
+
+        $this->call([EquitySeeder::class, $symbols]);
+
     }
 }
