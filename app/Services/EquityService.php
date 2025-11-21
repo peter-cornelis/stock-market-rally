@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Equity;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class EquityService
@@ -38,10 +39,12 @@ class EquityService
 
     public function getWithSelectedChartPeriod(Equity $equity, string $period): Equity
     {
-        return $equity->load([
-            'financialRatio',
-            'charts' => fn($query) => $this->chartService->period($query, $period)
-        ]);
+        return Cache::remember("chart.{$equity}.{$period}", now()->addHours(24), function() use ($equity, $period) {
+            return $equity->load([
+                'financialRatio',
+                'charts' => fn($query) => $this->chartService->period($query, $period)
+            ]);
+        });
     }
 
     public function addEquity(string $symbol): array
