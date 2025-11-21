@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
             'admin' => true
         ]);
 
+        User::factory()->count(100)->create();
+
         $eqService = app(EquityService::class);
         $symbols = ['NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL'];
         foreach($symbols as $symbol) {
