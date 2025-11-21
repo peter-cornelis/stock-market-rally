@@ -10,10 +10,6 @@ use Illuminate\Validation\ValidationException;
 
 class TransactionService
 {
-    public function __construct()
-    {
-    }
-
     public function addTransaction(User $user, Equity $equity, int $quantity, string $type): array
     {
         return DB::transaction(function() use ($user, $equity, $quantity, $type) {

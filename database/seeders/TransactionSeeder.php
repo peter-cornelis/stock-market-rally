@@ -1,0 +1,27 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Equity;
+use App\Models\User;
+use App\Services\TransactionService;
+use Illuminate\Database\Seeder;
+
+class TransactionSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run( int $transactionsCount, TransactionService $transactionService): void
+    {
+        for ($i = 0; $i < $transactionsCount; $i++) {
+            $limit = fake()->randomElement([1500, 2000, 2500, 3000, 3500]);
+            $user = User::inRandomOrder()->where('balance', '>=', $limit)->first();
+            $equity = Equity::inRandomOrder()->first();
+            $quantity = floor($limit / ($equity->current_price * 1.0025));
+            $transactionService->addTransaction($user, $equity, $quantity, 'buy');
+        }
+
+        //TODO: Temp change currentPrice (10% -/+ current)
+    }
+}

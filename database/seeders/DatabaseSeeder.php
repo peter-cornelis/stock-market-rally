@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Services\EquityService;
+use App\Services\RankingService;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -33,7 +33,10 @@ class DatabaseSeeder extends Seeder
             'SNAP', 'SQ', 'NFLX', 'ADBE', 'ROKU'
         ];
 
-        $this->call([EquitySeeder::class, $symbols]);
-
+        $this->callWith(EquitySeeder::class, ['symbols' => $symbols]);
+        
+        $this->callWith(TransactionSeeder::class, ['transactionsCount' => 250]);
+        
+        (new RankingService())->updateRankingList();
     }
 }

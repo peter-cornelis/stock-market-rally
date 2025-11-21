@@ -2,10 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Company;
-use App\Models\Equity;
-use App\Models\Exchange;
-use App\Models\FinancialRatio;
 use App\Services\EquityService;
 use Illuminate\Database\Seeder;
 
