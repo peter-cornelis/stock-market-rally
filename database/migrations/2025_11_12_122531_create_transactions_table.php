@@ -21,6 +21,8 @@ return new class extends Migration
             $table->decimal('fee', 8, 2);
             $table->decimal('total', 12, 2);
             $table->timestamps();
+
+            $table->index('created_at');
         });
     }
 
