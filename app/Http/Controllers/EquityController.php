@@ -18,7 +18,9 @@ class EquityController extends Controller
 
     public function index()
     {
-        $equities = $this->equityService->getAll()->paginate(5);
+        $equities = $this->equityService
+            ->getAll()
+            ->paginate(5);
         
         return view('equities.index', ['equities' => $equities]);
     }
@@ -27,7 +29,8 @@ class EquityController extends Controller
     {
         $period = $request->get('period', '1Y');
 
-        $equity = $this->equityService->getWithSelectedChartPeriod($equity, $period);
+        $equity = $this->equityService
+            ->getWithSelectedChartPeriod($equity, $period);
 
         return view('equities.show', ['equity' => $equity, 'currentPeriod' => $period]);
     }
@@ -36,7 +39,9 @@ class EquityController extends Controller
     {
         $$attributes = $request->validated();
         
-        $equities = $this->equityService->getByCompanyName($attributes['searchQuery'])->paginate(5);
+        $equities = $this->equityService
+            ->getByCompanyName($attributes['searchQuery'])
+            ->paginate(5);
         
         return view('equities.index', ['equities' => $equities]);
     }
@@ -44,6 +49,7 @@ class EquityController extends Controller
     public function create()
     {
         if (!Auth::user()->admin) abort(403);
+        
         return view('equities.create');
     }
 
@@ -53,7 +59,8 @@ class EquityController extends Controller
 
         $attributes = $request->validated();
 
-        $result = $this->equityService->addEquity($attributes['symbol']);
+        $result = $this->equityService
+            ->addEquity($attributes['symbol']);
 
         return back()->with($result['type'], $result['msg']);
     }

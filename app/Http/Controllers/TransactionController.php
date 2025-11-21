@@ -18,7 +18,9 @@ class TransactionController extends Controller
     public function index(User $user)
     {
         $username = $user->username;
-        $transactionList = $this->transactionService->getUserTransactionList($user);
+        $transactionList = $this->transactionService
+            ->getUserTransactionList($user);
+
         return view('transactions.index', ['transactionList' => $transactionList, 'username' => $username]);
     }
 
@@ -37,7 +39,8 @@ class TransactionController extends Controller
         $type = (string) $attributes['type'];
         $user = Auth::user();
 
-        $result = $this->transactionService->addTransaction($user, $equity, $quantity, $type);
+        $result = $this->transactionService
+            ->addTransaction($user, $equity, $quantity, $type);
 
         return back()->with($result['type'], $result['msg']);
     } 
