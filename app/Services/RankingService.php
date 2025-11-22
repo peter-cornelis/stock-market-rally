@@ -22,7 +22,7 @@ class RankingService
         $userRankings = User::query()
             ->withCount('transactions')
             ->orderBy('ranking', 'asc')
-            ->paginate(15);
+            ->paginate(10);
 
         return $userRankings;
     }

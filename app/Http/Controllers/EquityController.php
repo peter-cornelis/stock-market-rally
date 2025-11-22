@@ -37,7 +37,7 @@ class EquityController extends Controller
 
     public function search(SearchEquityRequest $request)
     {
-        $$attributes = $request->validated();
+        $attributes = $request->validated();
         
         $equities = $this->equityService
             ->getByCompanyName($attributes['searchQuery'])

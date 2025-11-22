@@ -13,9 +13,9 @@ class TransactionService
     public function addTransaction(User $user, Equity $equity, int $quantity, string $type): array
     {
         return DB::transaction(function() use ($user, $equity, $quantity, $type) {
-            $total = (float) $quantity * $equity->current_price;
-            $fee = round(max($total * 0.0025, 2.5), 2);
-            $total = $type === "buy" ? $total + $fee : $total - $fee;
+            $subTotal = (float) $quantity * $equity->current_price;
+            $fee = round(max($subTotal * 0.0025, 2.5), 2);
+            $total = $type === "buy" ? $subTotal + $fee : $subTotal - $fee;
 
             if($type === "buy" && $user->balance < $total) {
                 throw ValidationException::withMessages([

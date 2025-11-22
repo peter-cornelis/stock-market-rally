@@ -29,10 +29,11 @@ class DatabaseSeeder extends Seeder
 
         $symbols = [
             'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
-            'AMZN', 'META', 'SHOP', 'PLTR', 'INTC', 
-            'SNAP', 'SQ', 'NFLX', 'ADBE', 'ROKU'
+            'AMZN', 'META', 'SHOP', 'PLTR', 'INTC',
         ];
 
+        // 'SNAP', 'SQ', 'NFLX', 'ADBE', 'ROKU'
+        
         $this->callWith(EquitySeeder::class, ['symbols' => $symbols]);
         
         $this->callWith(TransactionSeeder::class, ['transactionsCount' => 250]);
