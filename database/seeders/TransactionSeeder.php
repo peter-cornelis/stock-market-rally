@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Chart;
 use App\Models\Equity;
 use App\Models\User;
 use App\Services\TransactionService;
@@ -16,27 +15,29 @@ class TransactionSeeder extends Seeder
     public function run( int $transactionsCount, TransactionService $transactionService): void
     {
         for ($i = 0; $i < $transactionsCount; $i++) {
-            $limit = fake()->randomElement([1500, 2000, 2500, 3000, 3500]);
-            $user = User::inRandomOrder()->where('balance', '>=', $limit)->first();
-            $equity = Equity::without('charts')->inRandomOrder()->first();
-            $buy_price = (float) round($equity->current_price * fake()->randomFloat(2, 0.70, 1.30), 2);
-            $quantity = floor($limit / ($buy_price * 1.0025));
 
-            $fakeChart = new Chart([
-                'price' => $buy_price, 
-                'date' => now()->subDays(rand(15, 90))
-            ]);
+            $limit = fake()
+                ->randomElement([1500, 2000, 2500, 3000, 3500]);
 
-            $equity->setRelation('charts', collect([$fakeChart]));
+            $user = User::inRandomOrder()
+                ->where('balance', '>=', $limit)->first();
+
+            $equity = Equity::inRandomOrder()
+                ->with([
+                    'charts' => fn($query) => $query
+                        ->whereDate('date', '>=', now()->startOfYear()->toDateString())
+                        ->inRandomOrder()
+                        ->limit(1)
+                ])->first();
+
+            $quantity = floor($limit / ($equity->current_price * 1.0025));
+
 
             try {
                 $transactionService->addTransaction($user, $equity, $quantity, 'buy');
             } catch (\Throwable $e) {
                 continue;
-            }finally {
-                $equity->unsetRelation('charts');
             }
-            
         }
     }
 }
