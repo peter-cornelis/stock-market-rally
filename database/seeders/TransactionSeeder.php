@@ -34,7 +34,7 @@ class TransactionSeeder extends Seeder
 
 
             try {
-                $transactionService->addTransaction($user, $equity, $quantity, 'buy');
+                $transactionService->addTransaction($user, $equity, $quantity, 'buy', true);
             } catch (\Throwable $e) {
                 continue;
             }
