@@ -31,22 +31,22 @@
         </article>
     </section>
     <section class="w-fit mx-auto px-4">
-        <x-section-header class="md:col-span-2">Statistieken {{ now()->year }}</x-section-header>
-        <ul class="grid grid-cols-2 md:grid-cols-3 gap-x-18 gap-y-12 text-white mx-auto">
-                <li title="aantal transacties" class="text-center py-4 min-w-48 bg-blueFin border border-black/20 rounded shadow">
-                    <h3 class="text-lg font-semibold">Actieve spelers</h3>
-                    <span class="flex w-16 h-16 text-3xl font-bold bg-black/15 justify-center items-center mx-auto my-4 rounded-full border border-black/10">{{ $statistics['totalActiveUsers'] }}</span>
-                </li>
-                <li title="aantal transacties" class="text-center py-4 min-w-48 bg-notice border border-black/20 rounded shadow">
-                    <h3 class="text-lg font-semibold">Transacties</h3>
-                    <span class="flex w-16 h-16 text-3xl font-bold bg-black/15 justify-center items-center mx-auto my-4 rounded-full border border-black/10">{{ $statistics['totalTransactions'] }}</span>
-                </li>
-                <li title="eerste speler in ranking" class="text-center py-4 w-52 h-52 col-span-2 md:col-span-1 mx-auto bg-yellow-500 border border-black/20 rounded shadow">
-                    <h3 class="text-lg font-semibold">#1</h3>
-                    <span class="block text-xl px-2 wrap-break-word mt-2 mb-1">{{ $statistics['highestRankedUsername'] }}</span>
-                    <span class="inline-block font-semibold px-2 wrap-break-word bg-white/15 border border-white/60 mx-2 rounded-xl">{{ number_format($statistics['highestRankedPortfolioValue'], 2, ',', '.') }}</span>
-                    <span class="block text-xs px-2 wrap-break-word mb-4">USD</span>
-                </li>
-            </ul>
+        <x-section-header>Statistieken {{ now()->year }}</x-section-header>
+        <ul class="grid grid-cols-2 gap-x-18 gap-y-12 text-white mx-auto">
+            <li title="eerste speler in ranking" class="col-span-2 text-center py-4 w-52 h-52 mx-auto bg-yellow-500 border border-black/20 rounded-3xl shadow">
+                <h3 class="text-lg font-semibold">#1</h3>
+                <span class="block text-xl font-bold px-2 wrap-break-word mt-6 mb-1">{{ $statistics['highestRankedUsername'] }}</span>
+                <span class="inline-block text-xl font-semibold px-2 wrap-break-word bg-white/15 border border-white/60 mx-2 rounded-xl">{{ number_format($statistics['highestRankedPortfolioValue'], 2, ',', '.') }}</span>
+                <span class="block text-sm px-2 wrap-break-word mb-4">USD</span>
+            </li>
+            <li title="actieve spelers" class="text-center py-4 w-52 h-52 mx-auto bg-blueFin border border-black/20 rounded-3xl shadow">
+                <h3 class="text-xl font-semibold">Actieve spelers</h3>
+                <span class="flex w-24 h-24 text-4xl font-bold bg-black/15 justify-center items-center mx-auto mt-6 rounded-full border border-black/10">{{ $statistics['totalActiveUsers'] }}</span>
+            </li>
+            <li title="aantal transacties" class="text-center py-4 w-52 h-52 bg-notice border border-black/20 rounded-3xl shadow">
+                <h3 class="text-xl font-semibold">Transacties</h3>
+                <span class="flex w-24 h-24 text-4xl font-bold bg-black/15 justify-center items-center mx-auto mt-6 rounded-full border border-black/10">{{ $statistics['totalTransactions'] }}</span>
+            </li>
+        </ul>
     </section>
 </x-layout>

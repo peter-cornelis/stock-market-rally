@@ -28,11 +28,10 @@ class DatabaseSeeder extends Seeder
         User::factory()->count(100)->create();
 
         $symbols = [
-            //'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
-            'AMZN', //'META', //'SHOP', 'PLTR', 'INTC',
+            'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
+            'AMZN', 'META', 'SHOP', 'PLTR', 'INTC',
+            'PYPL', 'PINS', 'NFLX', 'ADBE', 'DIS'
         ];
-
-        // 'SNAP', 'SQ', 'NFLX', 'ADBE', 'ROKU'
         
         $this->callWith(EquitySeeder::class, ['symbols' => $symbols]);
         
