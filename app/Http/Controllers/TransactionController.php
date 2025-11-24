@@ -33,7 +33,7 @@ class TransactionController extends Controller
 
     public function store(Equity $equity, StoreTransactionRequest $request)
     {
-        $attributes = $request->validate();
+        $attributes = $request->validated();
         
         $quantity = (int) $attributes['quantity'];
         $type = (string) $attributes['type'];

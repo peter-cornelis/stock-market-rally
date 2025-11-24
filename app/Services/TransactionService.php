@@ -10,9 +10,9 @@ use Illuminate\Validation\ValidationException;
 
 class TransactionService
 {
-    public function addTransaction(User $user, Equity $equity, int $quantity, string $type, ?bool $seed = false ): array
+    public function addTransaction(User $user, Equity $equity, int $quantity, string $type, ?string $executedAt = null ): array
     {
-        return DB::transaction(function() use ($user, $equity, $quantity, $type, $seed) {
+        return DB::transaction(function() use ($user, $equity, $quantity, $type, $executedAt) {
             $subTotal = (float) $quantity * $equity->current_price;
             $fee = round(max($subTotal * 0.0025, 2.5), 2);
             $total = $type === "buy" ? $subTotal + $fee : $subTotal - $fee;
@@ -38,8 +38,6 @@ class TransactionService
             $this->updateBalance($user, $type, $total);
             $this->updatePortfolio($user, $equity->id, $type, $quantity, $total);
 
-            $timestamp = $seed ? $equity->charts->first()->date : now();
-
             $user->transactions()->create([
                 'equity_id' => $equity->id,
                 'type' => $type,
@@ -47,7 +45,7 @@ class TransactionService
                 'price' => $equity->current_price,
                 'fee' => $fee,
                 'total' => $total,
-                'created_at' => $timestamp,
+                'created_at' => $executedAt ?? now(),
             ]);
 
             return ['type' => 'status', 'msg' => ($type == 'buy' ? "Aankoop" : "Verkoop") . " succesvol uitgevoerd."];

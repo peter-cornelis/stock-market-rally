@@ -6,6 +6,7 @@ use App\Models\Equity;
 use App\Models\User;
 use App\Services\TransactionService;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class TransactionSeeder extends Seeder
 {
@@ -25,16 +26,18 @@ class TransactionSeeder extends Seeder
             $equity = Equity::inRandomOrder()
                 ->with([
                     'charts' => fn($query) => $query
-                        ->whereDate('date', '>=', now()->startOfYear()->toDateString())
+                        ->whereDate('date', '>=', now()->startOfYear())
                         ->inRandomOrder()
                         ->limit(1)
                 ])->first();
 
             $quantity = floor($limit / ($equity->current_price * 1.0025));
 
+            $executedAt = $equity->charts->first()->date;
+
 
             try {
-                $transactionService->addTransaction($user, $equity, $quantity, 'buy', true);
+                $transactionService->addTransaction($user, $equity, $quantity, 'buy', $executedAt);
             } catch (\Throwable $e) {
                 continue;
             }

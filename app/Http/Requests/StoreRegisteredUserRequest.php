@@ -27,7 +27,8 @@ class StoreRegisteredUserRequest extends FormRequest
             'last_name'  => ['required', 'string', 'min:3', 'max:150'],
             'username'  => ['required', 'string', 'unique:users', 'min:3', 'max:100'],
             'email'      => ['required', 'string', 'email', 'unique:users,email'],
-            'password'   => ['required', 'string', Password::min(12), 'confirmed']];
+            'password'   => ['required', 'string', Password::min(12), 'confirmed']
+        ];
     }
 
     public function messages(): array

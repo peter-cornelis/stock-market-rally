@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         User::factory()->count(100)->create();
 
         $symbols = [
-            'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
-            'AMZN', 'META', 'SHOP', 'PLTR', 'INTC',
+            //'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
+            'AMZN', //'META', //'SHOP', 'PLTR', 'INTC',
         ];
 
         // 'SNAP', 'SQ', 'NFLX', 'ADBE', 'ROKU'

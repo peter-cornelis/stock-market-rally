@@ -16,6 +16,10 @@ class Transaction extends Model
         'type'
     ];
 
+    protected $casts = [
+        'date'  => 'datetime'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

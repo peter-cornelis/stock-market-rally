@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('charts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Equity::class)->constrained()->cascadeOnDelete();
-            $table->date('date');
+            $table->dateTime('date');
             $table->decimal('price', 10,2);
             $table->bigInteger('volume');
             $table->timestamps();
