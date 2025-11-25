@@ -7,7 +7,7 @@
         <article class="max-w-3xl min-w-3xs ml-auto px-6 py-4 bg-white rounded-lg shadow">
             <h3 class="text-lg font-semibold">Leren zonder risico</h3>
             <p>
-                Een leuke en veilige manier om kennis te maken met de beurs en te concurreren met andere spelers, via een fictief startkapitaal van 10 000 USD.
+                Een leuke en veilige manier om kennis te maken met de beurs en te concurreren met andere spelers, via een fictief startkapitaal van 40.000,00 USD.
                 Bij het beleggen is er keuze uit een beperkte selectie van technologie aandelen die noteren op de NASDAQ.
             </p>
         </article>
@@ -33,7 +33,7 @@
     <section class="w-fit mx-auto px-4">
         <x-section-header>Statistieken {{ now()->year }}</x-section-header>
         <ul class="grid grid-cols-2 gap-x-18 gap-y-12 text-white mx-auto">
-            <li title="eerste speler in ranking" class="col-span-2 text-center py-4 w-52 h-52 mx-auto bg-yellow-500 border border-black/20 rounded-3xl shadow">
+            <li title="eerste speler in ranking" class="col-span-2 text-center py-4 w-52 h-52 mx-auto bg-goldFin border border-black/20 rounded-3xl shadow">
                 <h3 class="text-lg font-semibold">#1</h3>
                 <span class="block text-xl font-bold px-2 wrap-break-word mt-6 mb-1">{{ $statistics['highestRankedUsername'] }}</span>
                 <span class="inline-block text-xl font-semibold px-2 wrap-break-word bg-white/15 border border-white/60 mx-2 rounded-xl">{{ number_format($statistics['highestRankedPortfolioValue'], 2, ',', '.') }}</span>

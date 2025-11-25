@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class RankingService
 {
@@ -17,23 +17,21 @@ class RankingService
         }
     }
 
-    public function getRankingList(): LengthAwarePaginator
+    public function getRankingList(): Builder
     {
         $userRankings = User::query()
             ->withCount('transactions')
-            ->orderBy('ranking', 'asc')
-            ->paginate(10);
+            ->orderBy('ranking', 'asc');
 
         return $userRankings;
     }
 
-    public function getRankingListByUsername(string $query): LengthAwarePaginator
+    public function getRankingListByUsername(string $query): Builder
     {
         $userRankings = User::query()
             ->withCount('transactions')
             ->where('username', 'like', '%'.$query.'%')
-            ->orderBy('ranking', 'asc')
-            ->paginate(15);
+            ->orderBy('ranking', 'asc');
 
         return $userRankings;
     }

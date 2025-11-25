@@ -18,7 +18,7 @@ class TransactionSeeder extends Seeder
         for ($i = 0; $i < $transactionsCount; $i++) {
 
             $limit = fake()
-                ->randomElement([1500, 2000, 2500, 3000, 3500]);
+                ->randomElement([1500, 2000, 2500, 3000, 3500, 4000, 5000, 7500]);
 
             $user = User::inRandomOrder()
                 ->where('balance', '>=', $limit)->first();

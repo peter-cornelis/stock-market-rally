@@ -11,18 +11,20 @@
                 <li title="Fictieve cash positie" class="text-sm pt-2">Cash: {{ number_format($user->balance, 2, ',', '.') }} USD</li>
             </ul>
             <a class="flex flex-col items-center">
-                <span class="material-symbols-outlined text-amber-400">crown</span>
+                <span class="material-symbols-outlined text-goldFin">crown</span>
                 <span class="text-sm font-semibold">{{ $user->ranking }}</span>
             </a>
         </article>
 
         <ul class="max-w-3xl mx-auto mt-10 p-1 bg-white rounded-lg shadow">
-            @forelse ($user->equities as $equity)
+            @forelse ($equitiesPaginator as $equity)
                 <x-equity-card-portfolio :$equity />
             @empty
                 <li class="text-xl text-center text-black/50">Nog geen aandelen toegevoegd.</li>
             @endforelse
         </ul>
-        
+        <div class="max-w-3xl mx-auto">
+            {{ $equitiesPaginator->links() }}
+        </div>
     </section>
 </x-layout>

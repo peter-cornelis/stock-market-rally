@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->decimal('starting_balance', 15, 2)->default(10000);
-            $table->decimal('balance', 10, 2)->default(10000);
+            $table->decimal('starting_balance', 15, 2)->default(40000);
+            $table->decimal('balance', 10, 2)->default(40000);
             $table->integer('ranking')->nullable();
             $table->boolean('admin')->default(false);
             $table->rememberToken();

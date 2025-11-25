@@ -14,7 +14,9 @@ class RankingController extends Controller
     public function index()
     {
         $rankings = $this->rankingService
-            ->getRankingList();
+            ->getRankingList()
+            ->paginate(10)
+            ->onEachSide(1);
 
         return view('ranking', ['rankings' => $rankings]);
     }
@@ -24,7 +26,9 @@ class RankingController extends Controller
         $attributes =$request->validated();
 
         $rankings = $this->rankingService
-            ->getRankingListByUsername($attributes['searchQuery']);
+            ->getRankingListByUsername($attributes['searchQuery'])
+            ->paginate(10)
+            ->onEachSide(1);
         
         return view('ranking', ['rankings' => $rankings]);
     }

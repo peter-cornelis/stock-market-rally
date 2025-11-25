@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         
         $this->callWith(EquitySeeder::class, ['symbols' => $symbols]);
         
-        $this->callWith(TransactionSeeder::class, ['transactionsCount' => 250]);
+        $this->callWith(TransactionSeeder::class, ['transactionsCount' => 1000]);
         
         (new RankingService())->updateRankingList();
     }

@@ -71,7 +71,7 @@ class User extends Authenticatable
 
     public function getPortfolioValueAttribute(): float
     {
-        return round($this->balance + $this->equities_value, 2);
+        return round($this->balance + $this->equitiesValue, 2);
     }
 
     public function getPortfolioGainAttribute(): float

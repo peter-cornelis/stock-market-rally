@@ -12,6 +12,8 @@
                 <li class="text-xl text-center mx-2 text-black/50">Geen resultaten gevonden.</li>
             @endforelse
         </ul>
-        {{ $rankings->links() }}
+        <div class="max-w-3xl mx-auto">
+            {{ $rankings->links() }}
+        </div>
     </section>
 </x-layout>
