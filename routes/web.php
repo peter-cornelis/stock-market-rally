@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CronController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\EquityController;
 use App\Http\Controllers\RankingController;
@@ -42,3 +43,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store'])->middleware('throttle:5,15');
 });
+
+//Cron Jobs
+Route::get('/cron/update-charts', [CronController::class, 'updateCharts']);
+Route::get('/cron/update-ranking', [CronController::class, 'updateRanking']);

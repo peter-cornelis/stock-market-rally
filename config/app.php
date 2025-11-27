@@ -122,5 +122,14 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | Cron Key
+    |--------------------------------------------------------------------------
+    |
+    | For cron jobs on website
+    |
+    */
 
+    'cron_key' => env('CRON_KEY'),
 ];
