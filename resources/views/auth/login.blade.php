@@ -2,9 +2,9 @@
     <x-slot:title>
         Aanmelden
     </x-slot:title>
-    <section class="max-w-4xl mx-auto mt-8 md:px-4">
+    <section class="min-w-sm max-w-4xl mx-auto mt-8 md:px-4">
         <x-section-header>Aanmelden</x-section-header>
-        <form action="/login" method="post" class="max-w-md mx-auto mt-8 px-10 py-8 bg-white md:rounded-lg shadow">
+        <form action="/login" method="post" class="xs:max-w-md mx-auto mt-8 px-10 py-8 bg-white 2sm:rounded-lg shadow">
             @csrf
             <x-form-label for="email">
                 E-Mailadres <x-form-asterix/>

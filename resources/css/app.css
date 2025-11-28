@@ -13,4 +13,7 @@
     --color-goldFin: #fed43f;
     --color-error: #c73056;
     --color-notice: #56ba9a;
+
+    --breakpoint-xs: 375px;
+    --breakpoint-2sm: 450px;
 }

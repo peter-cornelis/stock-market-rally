@@ -2,9 +2,9 @@
     <x-slot:title>
         Aanmelden
     </x-slot:title>
-    <section class="max-w-4xl mx-auto mt-8 px-4">
+    <section class="max-w-4xl mx-auto mt-8 md:px-4">
         <x-section-header>Account aanmaken</x-section-header>
-        <form action="/register" method="post" class="max-w-md mx-auto mt-8 px-10 py-8 bg-white rounded-lg shadow">
+        <form action="/register" method="post" class="max-w-md mx-auto mt-8 px-10 py-8 bg-white 2sm:rounded-lg shadow">
             @csrf
             <x-form-label for="first_name">
                 Voornaam <x-form-asterix/>

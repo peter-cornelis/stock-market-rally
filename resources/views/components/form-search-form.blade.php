@@ -1,6 +1,6 @@
 @props(['action', 'placeholder'])
 
-<form action="{{ $action }}" method="POST" class="relative">
+<form action="{{ $action }}" method="POST" class="relative mx-2">
     @csrf
     <x-form-input type="search" name="searchQuery" class="rounded-full shadow mx-auto max-w-sm" placeholder="{{ $placeholder }}" required/>
     @error('searchQuery')

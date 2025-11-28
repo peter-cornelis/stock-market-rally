@@ -20,6 +20,7 @@ export function initStockChart(chartData, symbol) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             interaction: {
                 mode: 'nearest',
                 axis: 'x',
