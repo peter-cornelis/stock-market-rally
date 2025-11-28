@@ -20,6 +20,7 @@ class RankingService
     public function getRankingList(): Builder
     {
         $userRankings = User::query()
+            ->where('ranking', '!=', null)
             ->withCount('transactions')
             ->orderBy('ranking', 'asc');
 

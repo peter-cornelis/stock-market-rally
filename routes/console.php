@@ -9,4 +9,4 @@ Schedule::job(new UpdateAllEquityChartsJob())
     ->at('23:00');
 
 Schedule::job(new UpdateRankingListJob())
-    ->hourly();
+    ->everyFiveMinutes();
