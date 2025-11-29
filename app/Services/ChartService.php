@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class ChartService
 {
@@ -25,5 +26,24 @@ class ChartService
 
         return $query->where('date', '>=', $dateLimit)
                      ->orderBy('date', 'asc');
+    }
+
+    public function periodWithMinMax($query, string $period): array
+    {
+        $chartData = $this->period($query, $period)->get();
+
+        $prices = $chartData->pluck('price');
+        $minPrice = $prices->min();
+        $maxPrice = $prices->max();
+        $minIndex = $prices->search($minPrice);
+        $maxIndex = $prices->search($maxPrice);
+
+        return [
+            'charts' => $chartData,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice,
+            'minIndex' => $minIndex,
+            'maxIndex' => $maxIndex,
+        ];
     }
 }
