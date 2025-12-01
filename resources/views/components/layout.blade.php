@@ -38,7 +38,7 @@
                     @method('DELETE')
                 </form>
                 @endguest
-                <button popovertarget="mobile-menu" class="flex md:hidden! rounded border text-black/50 hover:text-black/70 border-black/20 shadow px-1.5 py-1 material-symbols-outlined cursor-pointer">more_vert</button>
+                <button popovertarget="mobile-menu" class="flex md:hidden! rounded border text-black/50 hover:text-black/70 border-black/20 shadow px-1.5 py-1 cursor-pointer">Menu <span class="material-symbols-outlined">more_vert</span></button>
                 <div id="mobile-menu" popover class="md:hidden bg-stone-50 border border-black/20 rounded-lg shadow-lg p-4 m-4 top-14 ml-auto">
                     <ul class="border-b text-black/20 pb-4 mb-4">
                         <x-nav-link-mobile href="/portfolio" :active="request()->is('portfolio')">Portefeuille</x-nav-link>

@@ -30,9 +30,11 @@ class EquityController extends Controller
         $period = $request->get('period', '1Y');
 
         $equity = $this->equityService
-            ->getWithSelectedChartPeriod($equity, $period);
+            ->getWithFinancialRatios($equity);
+        $chartData = $this->chartService
+            ->period($equity, $period);
 
-        return view('equities.show', ['equity' => $equity, 'currentPeriod' => $period]);
+        return view('equities.show', ['equity' => $equity, 'chartData' => $chartData, 'currentPeriod' => $period]);
     }
 
     public function search(SearchEquityRequest $request)

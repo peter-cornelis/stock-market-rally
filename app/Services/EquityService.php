@@ -37,14 +37,12 @@ class EquityService
         )->orderBy('symbol');
     }
 
-    public function getWithSelectedChartPeriod(Equity $equity, string $period): Equity
+    public function getWithFinancialRatios(Equity $equity): Equity
     {
-        return Cache::remember("chart.{$equity}.{$period}", now()->addHours(24), function() use ($equity, $period) {
-            return $equity->load([
-                'financialRatio',
-                'charts' => fn($query) => $this->chartService->period($query, $period)
-            ]);
-        });
+        return $equity->load([
+            'financialRatio',
+            'charts' => fn($query) => $this->chartService->latestTwo($query)
+        ]);
     }
 
     public function addEquity(string $symbol): array

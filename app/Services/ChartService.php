@@ -2,17 +2,19 @@
 
 namespace App\Services;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class ChartService
 {
-    public function latestTwo($query): HasMany
+    public function latestTwo($query): Collection
     {
-        return $query->latest('date')->limit(2);
+        return $query->latest('date')
+            ->limit(2)
+            ->get();
     }
 
-    public function period($query, string $period): HasMany
+    public function period($equity, string $period): Collection
     {
         $dateLimit = match($period) {
             '1M' => now()->subMonth(),
@@ -24,26 +26,12 @@ class ChartService
             default => now()->subYear(),
         };
 
-        return $query->where('date', '>=', $dateLimit)
-                     ->orderBy('date', 'asc');
-    }
+        return Cache::remember("chart.{$equity->id}.{$period}", now()->addHours(1), function() use ($equity, $period, $dateLimit) {
+            $chartData = $equity->charts()->where('date', '>=', $dateLimit)
+                ->orderBy('date', 'asc')
+                ->get();
 
-    public function periodWithMinMax($query, string $period): array
-    {
-        $chartData = $this->period($query, $period)->get();
-
-        $prices = $chartData->pluck('price');
-        $minPrice = $prices->min();
-        $maxPrice = $prices->max();
-        $minIndex = $prices->search($minPrice);
-        $maxIndex = $prices->search($maxPrice);
-
-        return [
-            'charts' => $chartData,
-            'minPrice' => $minPrice,
-            'maxPrice' => $maxPrice,
-            'minIndex' => $minIndex,
-            'maxIndex' => $maxIndex,
-        ];
+            return $period === '3Y' || $period === '5Y' ? $chartData->nth(3) : $chartData;
+        });
     }
 }
