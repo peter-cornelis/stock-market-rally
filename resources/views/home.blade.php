@@ -5,7 +5,7 @@
     <section class="grid grid-cols-[auto] gap-x-8 max-w-4xl mx-auto my-8 sm:px-4">
         <x-section-header class="sm:col-span-2">Stock Market Rally</x-section-header>
         <article class="max-w-3xl min-w-3xs max-sm:mx-4 md:ml-auto px-6 py-4 bg-white rounded-lg shadow">
-            <h3 class="text-lg font-semibold">Leren zonder risico</h3>
+            <h3 class="text-lg font-semibold">Oefenen zonder risico</h3>
             <p>
                 Een leuke en veilige manier om kennis te maken met de beurs en te concurreren met andere spelers, via een fictief startkapitaal van 40.000,00 USD.
                 Bij het beleggen is er keuze uit een beperkte selectie van technologie aandelen die noteren op de NASDAQ.
@@ -17,7 +17,7 @@
                 <li>Elke beursdag koersupdates</li>
                 <li>Selectie van financiele ratio's</li>
                 <li>Koersgrafieken</li>
-                <li>Recentste bedrijfsgerelateerd nieuws</li>
+                <li>Ai advies gebasseerd op een technische analyse van het aandeel.</li>
             </ul>
             <p class="text-xs mt-2">Data beschikbaar gemaakt via 
                 <a 
