@@ -38,5 +38,4 @@ return [
         'key' => env('FMP_API_KEY'),
         'base_url' => 'https://financialmodelingprep.com/stable',
     ],
-
 ];

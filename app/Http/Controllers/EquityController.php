@@ -33,8 +33,10 @@ class EquityController extends Controller
             ->getWithFinancialRatios($equity);
         $chartData = $this->chartService
             ->period($equity, $period);
+        $aiAnalysis = $this->equityService
+            ->getAiAnalysis($equity->symbol);
 
-        return view('equities.show', ['equity' => $equity, 'chartData' => $chartData, 'currentPeriod' => $period]);
+        return view('equities.show', ['equity' => $equity, 'chartData' => $chartData, 'currentPeriod' => $period, 'aiAnalysis' => $aiAnalysis]);
     }
 
     public function search(SearchEquityRequest $request)
@@ -67,3 +69,5 @@ class EquityController extends Controller
         return back()->with($result['type'], $result['msg']);
     }
 }
+
+
