@@ -4,14 +4,14 @@
     </x-slot:title>
     <section class="grid grid-cols-[auto] gap-x-8 max-w-4xl mx-auto my-8 sm:px-4">
         <x-section-header class="sm:col-span-2">Stock Market Rally</x-section-header>
-        <article class="max-w-3xl min-w-3xs ml-auto px-6 py-4 bg-white sm:rounded-lg shadow">
+        <article class="max-w-3xl min-w-3xs max-sm:mx-4 md:ml-auto px-6 py-4 bg-white rounded-lg shadow">
             <h3 class="text-lg font-semibold">Leren zonder risico</h3>
             <p>
                 Een leuke en veilige manier om kennis te maken met de beurs en te concurreren met andere spelers, via een fictief startkapitaal van 40.000,00 USD.
                 Bij het beleggen is er keuze uit een beperkte selectie van technologie aandelen die noteren op de NASDAQ.
             </p>
         </article>
-        <article class="max-w-3xl max-sm:mt-8 px-6 xs:mx-auto py-4 mb-auto md:mt-0 text-white bg-blueFin xs:rounded-lg shadow border border-black/20">
+        <article class="max-w-3xl max-sm:mt-8 px-6 max-sm:mx-4 mx-auto py-4 mb-auto md:mt-0 text-white bg-blueFin rounded-lg shadow border border-black/20">
             <h3 class="text-lg font-semibold">Waar kan je jezelf aan verwachten?</h3>
             <ul class="list-disc pl-5 mt-2">
                 <li>Elke beursdag koersupdates</li>
