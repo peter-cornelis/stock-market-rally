@@ -15,3 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         initStockChart(chartData, symbol);
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => { 
+    document.getElementById("password").oninput = () => {
+        const length = document.getElementById('password').value.length;
+        if(length >= 12) {
+            document.getElementById('12chars').classList.add('text-notice');
+        } else {
+            document.getElementById('12chars').classList.remove('text-notice');
+        }
+    }
+});

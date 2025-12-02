@@ -47,17 +47,6 @@
                 <x-form-input name="password_confirmation" id="password_confirmation" type="password" required />
             </x-form-label>
             <x-form-submit value="Registreer" />
-            <script>
-                "use strict";
-                document.getElementById("password").oninput = () => {
-                    const length = document.getElementById('password').value.length;
-                    if(length >= 12) {
-                        document.getElementById('12chars').classList.add('text-notice');
-                    } else {
-                        document.getElementById('12chars').classList.remove('text-notice');
-                    }
-                }
-            </script>
         </form>
     </section>
 </x-layout>

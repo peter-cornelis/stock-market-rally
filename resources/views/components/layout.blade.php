@@ -16,7 +16,7 @@
         
     </head>
     <body class="grid grid-rows-[auto_1fr_auto] min-h-screen bg-zinc-100">
-        <header class="relative bg-stone-50 border-b border-black/20 py-6 px-8">
+        <header class="bg-stone-50 z-10 border-b border-black/20 py-6 px-8 sticky top-0">
             <nav class="flex justify-between items-center">
                 <ul class="flex gap-4 items-center">
                     <x-nav-link href="/"><img src="{{ Vite::asset('resources/images/logo.webp') }}" alt="Stock Market Rally Logo" class="h-9 object-contain pr-2"></x-nav-link>
