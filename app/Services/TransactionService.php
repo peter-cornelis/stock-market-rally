@@ -94,7 +94,7 @@ class TransactionService
                 'companies.name as company_name', 
                 'exchanges.currency'
                 )
-            ->orderBy('transactions.created_at')
+            ->orderBy('transactions.created_at', 'desc')
             ->get();
     }
 }
