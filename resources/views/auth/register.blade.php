@@ -41,11 +41,23 @@
                     <span class="absolute text-error text-sm">{{ $message }}</span>
                 @enderror
             </x-form-label>
+            <span class="block text-black/40 text-sm -mt-1 mb-3" id="12chars">&#x2713; Minstens 12 karakters vereist</span>
             <x-form-label for="password_confirmation">
                 Bevestig Wachtwoord <x-form-asterix/>
                 <x-form-input name="password_confirmation" id="password_confirmation" type="password" required />
             </x-form-label>
             <x-form-submit value="Registreer" />
+            <script>
+                "use strict";
+                document.getElementById("password").oninput = () => {
+                    const length = document.getElementById('password').value.length;
+                    if(length >= 12) {
+                        document.getElementById('12chars').classList.add('text-notice');
+                    } else {
+                        document.getElementById('12chars').classList.remove('text-notice');
+                    }
+                }
+            </script>
         </form>
     </section>
 </x-layout>
