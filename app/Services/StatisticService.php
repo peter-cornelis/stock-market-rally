@@ -42,7 +42,7 @@ class StatisticService
 
     public function getAll(): array
     {
-        return Cache::remember('statistics', now()->addMinutes(30), function() {
+        return Cache::remember('statistics', now()->addMinutes(15), function() {
             $highestRanked = $this->getHighestRankingUser();
 
             return [
