@@ -29,14 +29,14 @@ class EquityService
         ])->orderBy('symbol');
     }
 
-    public function getByCompanyName(string $searchQuery): Builder
+    public function getByCompanyName(string $searchQuery): ?Builder
     {
         $hasResults = Company::where('name', 'like', '%'.$searchQuery.'%')->count();
         if($hasResults == 0) {
             $searchQuery = $this->suggestCompanyName($searchQuery);
         }
 
-        return Equity::query()
+        $result = Equity::query()
             ->with([
             'company', 
             'exchange',
@@ -44,19 +44,25 @@ class EquityService
         ])->whereHas('company', fn($query) => 
             $query->where('name', 'like', '%'.$searchQuery.'%')
         )->orderBy('symbol');
+
+        return $result ?? null;
     }
 
-    public function suggestCompanyName(string $searchQuery): string
+    public function suggestCompanyName(string $searchQuery): ?string
     {
-        $availableCompanies = Company::get()
+        try {
+            $availableCompanies = Company::get()
             ->pluck('name');
         
-        return Gemini::generativeModel(model: 'gemini-2.5-flash-lite')
-            ->withSystemInstruction(
-                Content::parse('Return ONLY the correct edit if minimal (1 to 3) changes are needed, nothing else. No explanation.')
-            )
-            ->generateContent("User searched for: '{$searchQuery}'. Available companies: {$availableCompanies}. Search closest company.")
-            ->text();
+            return Gemini::generativeModel(model: 'gemini-2.5-flash-lite')
+                ->withSystemInstruction(
+                    Content::parse('Return ONLY the correct edit if minimal (1 to 3) changes are needed, nothing else. No explanation.')
+                )
+                ->generateContent("User searched for: '{$searchQuery}'. Available companies: {$availableCompanies}. Search closest company.")
+                ->text();
+        } catch(\Exception $e) {
+            return null;
+        }
     }
 
     public function getWithFinancialRatios(Equity $equity): Equity
@@ -105,16 +111,20 @@ class EquityService
         }
     }
 
-    public function getAiAnalysis(string $symbol): string
+    public function getAiAnalysis(string $symbol): ?string
     {
-        return Cache::remember("aiAnalysis.{$symbol}", now()->addHours(4), function() use ($symbol) {
-            $result = Gemini::generativeModel(model: 'gemini-2.5-flash-lite')
-                ->withSystemInstruction(
-                    Content::parse('Always start with technical analysis suggests. Explain in min 2, max 5 sentences.')
-                )
-                ->generateContent("buy or sell advice for the moment based on techbical analysis for the equity with symbol {$symbol} in dutch. Simple explained. Use company name instead of symbol.");
-            return $result->text();
-        });
+        try {
+            return Cache::remember("aiAnalysis.{$symbol}", now()->addHours(4), function() use ($symbol) {
+                $result = Gemini::generativeModel(model: 'gemini-2.5-flash-lite')
+                    ->withSystemInstruction(
+                        Content::parse('Always start with technical analysis suggests. Explain in min 2, max 5 sentences.')
+                    )
+                    ->generateContent("buy or sell advice for the moment based on techbical analysis for the equity with symbol {$symbol} in dutch. Simple explained. Use company name instead of symbol.");
+                return $result->text();
+            });
+        } catch(\Exception $e) {
+            return null;
+        }
     }
 }
 

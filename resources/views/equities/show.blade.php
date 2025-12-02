@@ -77,7 +77,7 @@
         @endif
         <article class="max-w-3xl mx-auto mt-10 px-6 py-4 bg-white md:rounded-lg shadow">
             <h3 class="text-lg font-bold text-black/50 mb-2">Ai advies: Kopen of Verkopen?</h3>
-            <p>{{ $aiAnalysis }}</p>
+            <p>{{ $aiAnalysis ?? "Momenteel geen AI analyse beschikbaar." }}</p>
         </article>
     </section>
 </x-layout>
