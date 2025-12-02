@@ -4,7 +4,7 @@
     </x-slot:title>
     <section class="max-w-4xl mx-auto mt-8 px-4">
         <x-section-header>{{ $type === 'buy' ? 'Kopen' : 'Verkopen' }} : {{ $equity->company->name }}</x-section-header>
-        <form action="/transactions/{{ $equity->id }}" id="transaction-form" method="post" class="max-w-md mx-auto mt-8 px-10 py-8 bg-white rounded-lg shadow" data-price="{{ $equity->current_price }}">
+        <form action="/transactions/{{ $equity->id }}" id="transaction-form" method="post" class="max-w-md mx-auto mt-8 px-10 py-8 bg-white rounded-lg shadow" data-price="{{ $equity->current_price }}" data-balance="{{ auth()->user()->balance }}">
             @csrf
             <x-form-label for="quantity">
                 Aantal <x-form-asterix/>
@@ -19,6 +19,7 @@
                 <li>Bruto:  <span id="gross">0</span> {{ $equity->exchange->currency}}</li>
                 <li>Kosten: <span id="fee">0</span> {{ $equity->exchange->currency}}</li>
                 <li>Totaal:  <span id="total">0</span> {{ $equity->exchange->currency}}</li>
+                <li>Cash:  <span id="cash">{{ auth()->user()->balance }}</span> {{ $equity->exchange->currency}}</li>
             </ul>
             <x-form-submit @class(['bg-error hover:bg-error/90' => $type === 'sell']) value="{{ $type === 'buy' ? 'Kopen' : 'Verkopen' }}"/>
         </form>

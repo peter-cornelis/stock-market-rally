@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=add,chevron_left,crown,info,more_vert">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=add,chevron_left,close_small,crown,info,more_vert">
 
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -59,7 +59,10 @@
                 </div>
             </nav>
             @if (session('status') || session('error'))
-                <span class="absolute left-1/2 -translate-x-1/2 top-17 text-white border border-black/10 rounded px-2 {{ session('status') ? 'bg-notice' : 'bg-error' }} py-1">{{ session('status') ?? session('error') }}</span>
+                <p class="absolute left-1/2 -translate-x-1/2 top-17 text-white border border-black/10 rounded px-2 shadow {{ session('status') ? 'bg-notice' : 'bg-error' }} py-1">
+                    {{ session('status') ?? session('error') }}
+                    <a href="" class="absolute border-l border-black/20 m-0 p-0 ml-2 text-white/60 hover:text-white material-symbols-outlined">close_small</a>
+                </p>
             @endif
         </header>
         <main class="md:px-8">
