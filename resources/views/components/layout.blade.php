@@ -59,10 +59,10 @@
                 </div>
             </nav>
             @if (session('status') || session('error'))
-                <p class="absolute left-1/2 -translate-x-1/2 top-17 text-white border border-black/10 rounded px-2 shadow {{ session('status') ? 'bg-notice' : 'bg-error' }} py-1">
+                <span class="absolute grid grid-cols-[1fr_auto] z-20 left-1/2 -translate-x-1/2 top-17 text-nowrap text-white border border-black/10 rounded pl-2 shadow {{ session('status') ? 'bg-notice' : 'bg-error' }} py-1">
                     {{ session('status') ?? session('error') }}
-                    <a href="" class="absolute border-l border-black/20 m-0 p-0 ml-2 text-white/60 hover:text-white material-symbols-outlined">close_small</a>
-                </p>
+                    <a href="" class="inline-block border-l border-black/20 ml-2 px-1 text-white/60 hover:text-white material-symbols-outlined">close_small</a>
+                </span>
             @endif
         </header>
         <main class="md:px-8">
