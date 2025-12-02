@@ -5,8 +5,6 @@ namespace App\Services;
 use App\Models\Company;
 use App\Models\Equity;
 use Gemini\Data\Content;
-use Gemini\Data\GenerationConfig;
-use Gemini\Enums\ResponseMimeType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 use Gemini\Laravel\Facades\Gemini;
@@ -55,9 +53,9 @@ class EquityService
         
         return Gemini::generativeModel(model: 'gemini-2.5-flash-lite')
             ->withSystemInstruction(
-                Content::parse('Return ONLY the correct edit, nothing else. No explanation.')
+                Content::parse('Return ONLY the correct edit if minimal (1 to 3) changes are needed, nothing else. No explanation.')
             )
-            ->generateContent("User searched for: '{$searchQuery}'. Available companies: {$availableCompanies}. Fix typos in user input.")
+            ->generateContent("User searched for: '{$searchQuery}'. Available companies: {$availableCompanies}. Search closest company.")
             ->text();
     }
 

@@ -12,7 +12,10 @@
             @forelse ($equities as $equity)
                 <x-equity-card :$equity/>
             @empty
-                <li class="text-xl text-center mt-10 text-black/50">Geen resultaten gevonden.</li>
+                <li class="text-xl text-center mt-10 text-black/50">
+                    Geen resultaten gevonden.
+                    <a href="/equities" class="block underline text-notice">Toon alle</a>
+                </li>
             @endforelse
         </ul>
         {{ $equities->links() }}

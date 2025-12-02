@@ -9,7 +9,10 @@
             @forelse ($rankings as $ranking)
             <x-ranking-card :$ranking/>
             @empty
-                <li class="text-xl text-center mx-2 text-black/50">Geen resultaten gevonden.</li>
+                <li class="text-xl text-center mx-2 text-black/50">
+                    Geen resultaten gevonden.
+                    <a href="/ranking" class="block underline text-notice">Toon alle</a>
+                </li>
             @endforelse
         </ul>
         <div class="max-w-3xl mx-auto">
