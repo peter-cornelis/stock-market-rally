@@ -14,24 +14,16 @@ class ChartService
             ->get();
     }
 
-    public function period($equity, string $period): Collection
+    public function lastest5Years($equity): Collection
     {
-        $dateLimit = match($period) {
-            '1M' => now()->subMonth(),
-            '3M' => now()->subMonths(3),
-            '6M' => now()->subMonths(6),
-            'YTD' => now()->startOfYear(),
-            '3Y' => now()->subYears(3),
-            '5Y' => now()->subYears(5),
-            default => now()->subYear(),
-        };
+        $dateLimit = now()->subYears(5);
 
-        return Cache::remember("chart.{$equity->id}.{$period}", now()->addHours(1), function() use ($equity, $period, $dateLimit) {
+        return Cache::remember("chart.{$equity->id}", now()->addHours(12), function() use ($equity, $dateLimit) {
             $chartData = $equity->charts()->where('date', '>=', $dateLimit)
                 ->orderBy('date', 'asc')
                 ->get();
 
-            return $period === '3Y' || $period === '5Y' ? $chartData->nth(3) : $chartData;
+            return $chartData;
         });
     }
 }

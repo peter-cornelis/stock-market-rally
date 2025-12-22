@@ -41,12 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => { 
-    document.getElementById("password").oninput = () => {
-        const length = document.getElementById('password').value.length;
-        if(length >= 12) {
-            document.getElementById('12chars').classList.add('text-notice');
-        } else {
-            document.getElementById('12chars').classList.remove('text-notice');
+    const password = document.getElementById("password");
+    if(password) {
+        password.oninput = () => {
+            const length = document.getElementById('password').value.length;
+            if(length >= 12) {
+                document.getElementById('12chars').classList.add('text-notice');
+            } else {
+                document.getElementById('12chars').classList.remove('text-notice');
+            }
         }
     }
 });

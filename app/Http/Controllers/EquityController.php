@@ -30,7 +30,7 @@ class EquityController extends Controller
         $equity = $this->equityService
             ->getWithFinancialRatios($equity);
         $chartData = $this->chartService
-            ->period($equity, '5Y');
+            ->lastest5Years($equity);
         $aiAnalysis = $this->equityService
             ->getAiAnalysis($equity->symbol);
 
