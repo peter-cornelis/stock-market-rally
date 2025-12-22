@@ -1,5 +1,5 @@
 ﻿@if ($paginator->hasPages())
-    <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="text-black/70 mt-4 max-md:mx-4">
+    <nav role="navigation" aria-label="Navigeren door paginatie" class="text-black/70 mt-4 max-md:mx-4">
         <div class="flex justify-between flex-1 sm:hidden">
             @if ($paginator->onFirstPage())
                 <span class="relative inline-flex items-center pl-1 pr-3 py-1 text-sm font-medium text-black/50 bg-white cursor-default shadow rounded-lg">
@@ -28,11 +28,11 @@
 
         <div class="hidden sm:flex justify-between items-center">
             <p class="py-1">
-                {!! __('Resultaat') !!}
+                Resultaat
                 <span>{{ $paginator->firstItem() }}</span>
-                {!! __('tot') !!}
+                tot
                 <span>{{ $paginator->lastItem() }}</span>
-                {!! __('van de') !!}
+                van de
                 <span>{{ $paginator->total() }}</span>
             </p>
 
