@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=add,chevron_left,close_small,crown,info,more_vert">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=add,chevron_left,chevron_right,close_small,crown,info,more_vert">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -38,9 +38,9 @@
                     @method('DELETE')
                 </form>
                 @endguest
-                <button popovertarget="mobile-menu" class="flex md:hidden! rounded border text-black/50 hover:text-black/70 border-black/20 shadow px-1.5 py-1 cursor-pointer">
+                <button popovertarget="mobile-menu" class="flex md:hidden! rounded border text-black/50 hover:text-black/70 border-black/20 shadow px-2 py-1 cursor-pointer">
                     Menu
-                    <span class="material-symbols-outlined border-l border-black/20 ml-2">more_vert</span>
+                    <span class="material-symbols-outlined border-l border-black/20 ml-2 pl-1">more_vert</span>
                 </button>
                 <div id="mobile-menu" popover class="md:hidden bg-stone-50 border border-black/20 rounded-lg shadow-lg p-4 m-4 top-14 ml-auto">
                     <ul class="border-b text-black/20 pb-4 mb-4">

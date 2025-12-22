@@ -52,7 +52,7 @@ class EquityService
     {
         try {
             $availableCompanies = Company::get()
-            ->pluck('name');
+                ->pluck('name');
         
             return Gemini::generativeModel(model: 'gemini-2.5-flash-lite')
                 ->withSystemInstruction(
@@ -119,7 +119,7 @@ class EquityService
                     ->withSystemInstruction(
                         Content::parse('Always start with technical analysis suggests. Explain in min 2, max 5 sentences.')
                     )
-                    ->generateContent("buy or sell advice for the moment based on techbical analysis for the equity with symbol {$symbol} in dutch. Simple explained. Use company name instead of symbol.");
+                    ->generateContent("buy or sell advice for the moment based on technical analysis for the equity with symbol {$symbol} in dutch. Simple explained. Use company name instead of symbol.");
                 return $result->text();
             });
         } catch(\Exception $e) {
