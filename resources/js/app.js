@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Auto-initialize password strength indicator if password field is present
 document.addEventListener('DOMContentLoaded', () => { 
     const password = document.getElementById("password");
     if(password) {
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Helper function to filter chart data based on selected period
 function filterChartDataByPeriod(chartData, period) {
     const now = new Date();
     let cutoffDate;
