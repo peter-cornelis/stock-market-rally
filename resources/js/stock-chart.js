@@ -5,7 +5,7 @@ export function initStockChart(chartData, symbol) {
     
     if (!ctx) return;
 
-    new Chart(ctx.getContext('2d'), {
+    return new Chart(ctx.getContext('2d'), {
         type: 'line',
         data: {
             labels: chartData.map(item => item.date),

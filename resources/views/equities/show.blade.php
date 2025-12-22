@@ -16,13 +16,13 @@
             <canvas id="myChart" height="120" data-chart-data="{{ json_encode($chartData) }}" data-symbol="{{ $equity->symbol }}"></canvas>
             @auth
             <nav class="flex gap-2 mt-4 justify-center">
-                <x-chart-nav-link period="1M" :active="$currentPeriod === '1M'" />
-                <x-chart-nav-link period="3M" :active="$currentPeriod === '3M'" />
-                <x-chart-nav-link period="6M" :active="$currentPeriod === '6M'" />
-                <x-chart-nav-link period="YTD" :active="$currentPeriod === 'YTD'" />
-                <x-chart-nav-link period="1Y" :active="$currentPeriod === '1Y'" />
-                <x-chart-nav-link period="3Y" :active="$currentPeriod === '3Y'" />
-                <x-chart-nav-link period="5Y" :active="$currentPeriod === '5Y'" />
+                <x-chart-nav-link period="1M"/>
+                <x-chart-nav-link period="3M"/>
+                <x-chart-nav-link period="6M"/>
+                <x-chart-nav-link period="YTD"/>
+                <x-chart-nav-link period="1Y"/>
+                <x-chart-nav-link period="3Y"/>
+                <x-chart-nav-link period="5Y"/>
             </nav>
                 <ul class="grid grid-flow-col gap-6">
                     <li class="text-center">

@@ -27,16 +27,14 @@ class EquityController extends Controller
 
     public function show(Equity $equity, Request $request)
     {
-        $period = $request->get('period', '1Y');
-
         $equity = $this->equityService
             ->getWithFinancialRatios($equity);
         $chartData = $this->chartService
-            ->period($equity, $period);
+            ->period($equity, '5Y');
         $aiAnalysis = $this->equityService
             ->getAiAnalysis($equity->symbol);
 
-        return view('equities.show', ['equity' => $equity, 'chartData' => $chartData, 'currentPeriod' => $period, 'aiAnalysis' => $aiAnalysis]);
+        return view('equities.show', ['equity' => $equity, 'chartData' => $chartData, 'aiAnalysis' => $aiAnalysis]);
     }
 
     public function search(SearchEquityRequest $request)
