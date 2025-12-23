@@ -45,14 +45,6 @@ export function initStockChart(chartData, symbol) {
                     hoverBorderWidth: 2
                 }
             },
-            animations: {
-    tension: {
-        duration: 1000,
-        easing: 'easeInOutCubic',
-        from: 0,
-        to: 0.4
-    }
-},
             scales: {
                 x: {
                     grid: {
