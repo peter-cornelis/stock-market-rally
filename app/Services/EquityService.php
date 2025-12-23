@@ -58,7 +58,7 @@ class EquityService
                 ->withSystemInstruction(
                     Content::parse('Return ONLY the correct edit if minimal (1 to 3) changes are needed, nothing else. No explanation.')
                 )
-                ->generateContent("User searched for: '{$searchQuery}'. Available companies: {$availableCompanies}. Search closest company.")
+                ->generateContent("User searched for: '{$searchQuery}'. Available companies: {$availableCompanies}. Consider: spelling mistakes, partial matches, abbreviations, and character similarity. Return the single best match.")
                 ->text();
         } catch(\Exception $e) {
             return null;
@@ -117,9 +117,9 @@ class EquityService
             return Cache::remember("aiAnalysis.{$symbol}", now()->addHours(4), function() use ($symbol) {
                 $result = Gemini::generativeModel(model: 'gemini-2.5-flash-lite')
                     ->withSystemInstruction(
-                        Content::parse('Always start with technical analysis suggests. Explain in min 2, max 5 sentences.')
+                        Content::parse('Always start with technical analysis suggests. Explain in min 2, max 5 sentences. Use direct, clear language without repetition. Do not use * or stars in the sentences.')
                     )
-                    ->generateContent("buy or sell advice for the moment based on technical analysis for the equity with symbol {$symbol} in dutch. Simple explained. Use company name instead of symbol.");
+                    ->generateContent("Provide a buy/sell/hold recommendation based on technical analysis for stock symbol {$symbol} with the most recent available data. Explain simply in Dutch using the company name instead of the symbol.");
                 return $result->text();
             });
         } catch(\Exception $e) {
