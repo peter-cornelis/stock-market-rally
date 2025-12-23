@@ -13,7 +13,7 @@
                 <span class="font-semibold text-2xl text-black/80" title="laatste koers">{{ number_format($equity->current_price, 2, ',', '.') }} {{ $equity->exchange->currency }}</span>
                 <span class="inline-block {{ $equity->daily_change >= 0 ? 'bg-notice' : 'bg-error' }} text-white font-semibold rounded py-px px-2 ml-2 my-auto shadow">{{ $equity->daily_change_percentage }} %</span>
             </div>
-            <canvas id="myChart" height="120" data-chart-data="{{ json_encode($chartData) }}" data-symbol="{{ $equity->symbol }}"></canvas>
+            <canvas id="myChart" height="120" data-chart-data="{{ json_encode($chartData) }}" data-symbol="{{ $equity->symbol }}" class="opacity-100 transition-opacity duration-300"></canvas>
             @auth
             <nav class="flex gap-2 mt-4 justify-center">
                 <x-chart-nav-link period="1M"/>

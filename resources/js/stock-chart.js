@@ -12,8 +12,8 @@ export function initStockChart(chartData, symbol) {
             datasets: [{
                 label: `${symbol} Koers`,
                 data: chartData.map(item => item.price),
-                backgroundColor: 'rgba(86, 186, 154, 0.1)',
-                borderColor: 'rgba(86, 186, 154, 1)',
+                backgroundColor: 'rgba(78, 145, 204, 0.1)',
+                borderColor: 'rgba(78, 145, 204, 1)',
                 borderWidth: 2,
                 fill: true
             }]
@@ -45,6 +45,14 @@ export function initStockChart(chartData, symbol) {
                     hoverBorderWidth: 2
                 }
             },
+            animations: {
+    tension: {
+        duration: 1000,
+        easing: 'easeInOutCubic',
+        from: 0,
+        to: 0.4
+    }
+},
             scales: {
                 x: {
                     grid: {

@@ -65,10 +65,10 @@
                 </span>
             @endif
         </header>
-        <main class="md:px-8">
+        <main class="md:px-8 pb-3">
             {{ $slot }}
         </main>
-        <footer class="text-sm text-center pb-2 pt-6">
+        <footer class="bg-white text-sm text-center py-2 inset-shadow-sm border-t border-black/10">
             <span class="text-black/40 font-bold py-1">Cornelis Peter {{ now()->year }}</span>
         </footer>
     </body>

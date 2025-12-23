@@ -36,7 +36,7 @@
                 <span>{{ $paginator->total() }}</span>
             </p>
 
-            <ul class="flex items-center bg-white font-semibold rounded-lg shadow">
+            <ul class="flex items-center bg-white text-sm rounded-lg shadow">
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <li class="flex justify-center min-w-8 text-center text-black/50 py-1 border-r border-black/5" aria-disabled="true" aria-label="@lang('pagination.previous')">
