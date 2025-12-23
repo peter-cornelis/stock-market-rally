@@ -12,7 +12,7 @@ export function initStockChart(chartData, symbol) {
             datasets: [{
                 label: `${symbol} Koers`,
                 data: chartData.map(item => item.price),
-                backgroundColor: 'rgba(78, 145, 204, 0.1)',
+                backgroundColor: 'rgba(78, 145, 204, 0.2)',
                 borderColor: 'rgba(78, 145, 204, 1)',
                 borderWidth: 2,
                 fill: true
@@ -54,7 +54,7 @@ export function initStockChart(chartData, symbol) {
                     borderColor: 'rgba(0, 0, 0, 0.15)',
                     borderWidth: 1,
                     padding: 10,
-                    yAlign: 'bottom',
+                    
                     bodyAlign: 'center',
                     callbacks: {
                         label: function(context) {
@@ -106,7 +106,7 @@ export function initStockChart(chartData, symbol) {
                     },
                     ticks: {
                         callback: function(value, index) {
-                            return index % 2 === 0 ? '$' + value.toFixed(2) : undefined;
+                            return index % 2 !== 0 ? '$' + value.toFixed(2) : undefined;
                         },
                     }
                 }

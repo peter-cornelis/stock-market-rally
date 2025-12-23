@@ -8,12 +8,12 @@
             {{ $equity->company->name }}
         </x-section-header>
 
-        <div class="max-w-3xl mx-auto mt-10 px-4 md:py-6 py-4 bg-white md:rounded-lg shadow">
+        <div class="max-w-3xl mx-auto mt-10 px-6 md:py-6 py-4 bg-white md:rounded-lg shadow">
             <div class="flex mb-4 justify-center">
                 <span class="font-semibold text-2xl text-black/80" title="laatste koers">{{ number_format($equity->current_price, 2, ',', '.') }} {{ $equity->exchange->currency }}</span>
                 <span class="inline-block {{ $equity->daily_change >= 0 ? 'bg-notice' : 'bg-error' }} text-white font-semibold rounded py-px px-2 ml-2 my-auto shadow">{{ $equity->daily_change_percentage }} %</span>
             </div>
-            <canvas id="myChart" height="120" data-chart-data="{{ json_encode($chartData) }}" data-symbol="{{ $equity->symbol }}" class="opacity-100 transition-opacity duration-300"></canvas>
+            <canvas id="myChart" height="120" data-chart-data="{{ json_encode($chartData) }}" data-symbol="{{ $equity->symbol }}"></canvas>
             @auth
             <nav class="flex gap-2 mt-4 justify-center">
                 <x-chart-nav-link period="1M"/>
