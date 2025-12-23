@@ -21,6 +21,19 @@ export function initStockChart(chartData, symbol) {
         options: {
             responsive: true,
             maintainAspectRatio: true,
+            animation: {
+                
+                x: {
+                    type: 'number',
+                    easing: 'easeOutQuart',
+                    duration: 500,
+                    from: (ctx) => {
+                        const chart = ctx.chart;
+                        const { bottom } = chart.chartArea || {};
+                        return bottom || 0;
+                    }
+                }
+            },
             interaction: {
                 mode: 'nearest',
                 axis: 'x',
@@ -55,17 +68,34 @@ export function initStockChart(chartData, symbol) {
                         unit: 'month',
                         tooltipFormat: 'dd MMM yyyy',
                         displayFormats: {
-                            month: 'MMM'                        }
-                    }                    
+                            month: 'MMM'
+                        }
+                    },                    
+                    ticks: {
+                        callback: function(value, index, ticks) {   // !index required to determine number of ticks!
+                            const date = new Date(value);
+                            const month = date.getMonth();
+
+                            switch (month) {
+                                case 0:
+                                    return ticks.length > 12 ? format(date, 'yyyy') : format(date, 'yy');
+                                case 4:
+                                case 8:
+                                    return ticks.length > 12 ? format(date, 'MMM') : format(date, 'MMM');
+                                default:
+                                    return ticks.length > 12 ? undefined : format(date, 'MMM');
+                            }                      
+                        }
+                    }
                 },
                 y: {
                     grid: {
                         display: false,
                     },
                     ticks: {
-                        callback: function(value) {
-                            return '$' + value.toFixed(2);
-                        }
+                        callback: function(value, index) {
+                            return index % 2 === 0 ? '$' + value.toFixed(2) : undefined;
+                        },
                     }
                 }
             }
