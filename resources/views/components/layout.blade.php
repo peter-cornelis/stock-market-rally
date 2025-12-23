@@ -59,13 +59,13 @@
                 </div>
             </nav>
             @if (session('status') || session('error'))
-                <span class="absolute grid grid-cols-[1fr_auto] z-20 left-1/2 -translate-x-1/2 top-17 text-nowrap text-white border border-black/10 rounded pl-2 shadow {{ session('status') ? 'bg-notice' : 'bg-error' }} py-1">
+                <span id="notice" class="absolute grid grid-cols-[1fr_auto] z-20 left-1/2 -translate-x-1/2 top-17 text-nowrap text-white border border-black/10 rounded pl-2 py-1 shadow {{ session('status') ? 'bg-notice' : 'bg-error' }} transition-opacity duration-300">
                     {{ session('status') ?? session('error') }}
-                    <a href="" class="inline-block border-l border-black/20 ml-2 px-1 text-white/60 hover:text-white material-symbols-outlined">close_small</a>
+                    <button id="closeNotice" class="inline-block border-l border-black/20 ml-2 px-1 text-white/60 hover:text-white material-symbols-outlined">close_small</button>
                 </span>
             @endif
         </header>
-        <main class="md:px-8 pb-3">
+        <main class="md:px-8 pb-4">
             {{ $slot }}
         </main>
         <footer class="bg-white text-sm text-center py-2 inset-shadow-sm border-t border-black/10">

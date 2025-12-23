@@ -55,6 +55,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Auto-initialize password strength indicator if password field is present
+document.addEventListener('DOMContentLoaded', () => { 
+    const notice = document.getElementById("notice");
+    const closeNotice = document.getElementById("closeNotice");
+    if(notice) {
+        closeNotice.addEventListener('click', () => {
+        notice.classList.add('opacity-0');
+        setTimeout(() => {
+                notice.remove();
+            }, 500);
+        });
+        setTimeout(() => {
+            notice.classList.add('opacity-0');
+        }, 8000);
+        setTimeout(() => {
+            notice.remove();
+        }, 8500);
+    }
+    
+});
+
 // Helper function to filter chart data based on selected period
 function filterChartDataByPeriod(chartData, period) {
     const now = new Date();
