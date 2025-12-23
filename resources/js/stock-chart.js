@@ -44,6 +44,18 @@ export function initStockChart(chartData, symbol) {
                     display: false,
                 },
                 tooltip: {
+                    displayColors: false,
+                    backgroundColor: 'rgba(245, 245, 244, 0.98)',
+                    titleColor: 'rgb(78, 145, 204)',
+                    bodyColor: 'rgba(0, 0, 0, 0.7)',
+                    titleFont: { weight: 'normal' },
+                    bodyFont: { weight: 'bold' },
+                    cornerRadius: 10,
+                    borderColor: 'rgba(0, 0, 0, 0.15)',
+                    borderWidth: 1,
+                    padding: 10,
+                    yAlign: 'bottom',
+                    bodyAlign: 'center',
                     callbacks: {
                         label: function(context) {
                             return'$' + context.parsed.y.toFixed(2);
