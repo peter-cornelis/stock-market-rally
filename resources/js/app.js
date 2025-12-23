@@ -55,11 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Auto-initialize password strength indicator if password field is present
+// Animate and auto-dismiss notice messages
 document.addEventListener('DOMContentLoaded', () => { 
     const notice = document.getElementById("notice");
-    const closeNotice = document.getElementById("closeNotice");
     if(notice) {
+        const closeNotice = document.getElementById("closeNotice");
         closeNotice.addEventListener('click', () => {
         notice.classList.add('opacity-0');
         setTimeout(() => {
