@@ -1,5 +1,5 @@
 ﻿@if ($paginator->hasPages())
-    <nav role="navigation" aria-label="Navigeren door paginatie" class="text-black/70 mt-4 max-md:mx-4">
+    <nav role="navigation" aria-label="Navigeren door paginatie" class=" text-black/70 mt-4 max-md:mx-4">
         <div class="flex justify-between flex-1 sm:hidden">
             @if ($paginator->onFirstPage())
                 <span class="relative inline-flex items-center pl-1 pr-3 py-1 text-sm font-medium text-black/50 bg-white cursor-default shadow rounded-lg">
@@ -7,14 +7,14 @@
                     Vorige
                 </span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" class="relative inline-flex items-center pl-1 pr-3 py-1 text-sm font-medium bg-white hover:text-black/90 active:text-black/70 shadow rounded-lg transition ease-in-out duration-200">
+                <a href="{{ $paginator->previousPageUrl() }}" class="relative inline-flex items-center pl-1 pr-3 py-1 text-sm font-medium bg-white hover:bg-black/2 hover:text-black/90 active:text-black/70 shadow rounded-lg transition ease-in-out duration-200">
                     <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
                     Vorige
                 </a>
             @endif
 
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" class="relative inline-flex items-center pl-3 pr-1 py-1 text-sm font-medium bg-white hover:text-black/90 active:text-black/70 shadow rounded-lg transition ease-in-out duration-200">
+                <a href="{{ $paginator->nextPageUrl() }}" class="relative inline-flex items-center pl-3 pr-1 py-1 text-sm font-medium bg-white hover:bg-black/2 hover:text-black/90 active:text-black/70 shadow rounded-lg transition ease-in-out duration-200">
                     Volgende
                     <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
                 </a>
@@ -43,7 +43,7 @@
                         <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
                     </li>
                 @else
-                    <li class="flex justify-center min-w-8 text-center hover:text-black/90 active:text-black/70 py-1 border-r border-black/5 transition ease-in-out duration-200">
+                    <li class="flex justify-center min-w-8 text-center hover:bg-black/2 hover:text-black/90 active:text-black/70 py-1 rounded-l-lg border-r border-black/5 transition ease-in-out duration-200">
                         <a class="material-symbols-outlined" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">chevron_left</a>
                     </li>
                 @endif
@@ -59,9 +59,9 @@
                     @if (is_array($element))
                         @foreach ($element as $page => $url)
                             @if ($page == $paginator->currentPage())
-                                <li class="min-w-8 text-center text-black/90 px-2 py-1 border-r border-black/5" aria-current="page"><span class="page-link">{{ $page }}</span></li>
+                                <li class="min-w-8 text-center text-black/90 px-2 py-1.5 border-r border-black/5" aria-current="page"><span class="page-link">{{ $page }}</span></li>
                             @else
-                                <li class="min-w-8 text-center hover:text-black/90 active:text-black/70 px-2 py-1 border-r border-black/5 transition ease-in-out duration-200"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                <li class="min-w-8 text-center hover:bg-black/2 hover:text-black/90 active:text-black/70 px-2 py-1.5 border-r border-black/5 transition ease-in-out duration-200"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
                             @endif
                         @endforeach
                     @endif
@@ -69,7 +69,7 @@
 
                 {{-- Next Page Link --}}
                 @if ($paginator->hasMorePages())
-                    <li class="flex justify-center min-w-8 text-center hover:text-black/90 transition ease-in-out duration-200">
+                    <li class="flex justify-center min-w-8 text-center hover:bg-black/2 py-1 hover:text-black/90 rounded-r-lg transition ease-in-out duration-200">
                         <a class="material-symbols-outlined" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">chevron_right</a>
                     </li>
                 @else
