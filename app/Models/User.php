@@ -83,4 +83,10 @@ class User extends Authenticatable
     {
         return round(($this->portfolio_gain / $this->starting_balance) * 100, 2);
     }
+
+    public function getEquityQuantityAttribute(int $equityId): int
+    {
+        $equity =  $this->equities->where('id', $equityId)->first();
+        return $equity->pivot->quantity;
+    }
 }

@@ -8,7 +8,7 @@
             @csrf
             <x-form-label for="quantity">
                 Aantal <x-form-asterix/>
-                <x-form-input name="quantity" id="quantity" type="number" value="{{ old('quantity') }}" min="1" step="1" required />
+                <x-form-input name="quantity" id="quantity" type="number" value="{{ $type === 'sell' ? auth()->user()->getEquityQuantityAttribute($equity->id) : old('quantity') }}" min="1" step="1" required />
                 @error('quantity')
                     <span class="absolute text-error text-sm">{{ $message }}</span>
                 @enderror

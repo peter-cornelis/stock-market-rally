@@ -19,13 +19,13 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Test',
             'last_name' => 'User',
-            'username' => 'testopulos',
-            'email' => 'test@example.com',
-            'password' => 'password',
+            'username' => env('ADMIN_NAME'),
+            'email' => env('ADMIN_EMAIL'),
+            'password' => env('ADMIN_PASSWORD'),
             'admin' => true
         ]);
 
-        User::factory()->count(100)->create();
+        User::factory()->count(50)->create();
 
         $symbols = [
             'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         
         $this->callWith(EquitySeeder::class, ['symbols' => $symbols]);
         
-        $this->callWith(TransactionSeeder::class, ['transactionsCount' => 1000]);
+        $this->callWith(TransactionSeeder::class, ['transactionsCount' => 400]);
         
         (new RankingService())->updateRankingList();
     }
