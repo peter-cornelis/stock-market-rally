@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreEquityRequest extends FormRequest
@@ -17,12 +20,12 @@ class StoreEquityRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'symbol' => ['required', 'string', 'min:2', 'max:10']
+            'symbol' => ['required', 'string', 'min:2', 'max:10'],
         ];
     }
 
@@ -31,7 +34,7 @@ class StoreEquityRequest extends FormRequest
         return [
             'symbol.required' => 'Symbool vereist.',
             'symbol.min' => 'Minstens 2 karakters vereist.',
-            'symbol.max' => 'Maximaal 10 karakters toegestaan.'
+            'symbol.max' => 'Maximaal 10 karakters toegestaan.',
         ];
     }
 }

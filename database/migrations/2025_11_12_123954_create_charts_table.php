@@ -16,10 +16,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Equity::class)->constrained()->cascadeOnDelete();
             $table->dateTime('date');
-            $table->decimal('price', 10,2);
+            $table->decimal('price', 10, 2);
             $table->bigInteger('volume');
             $table->timestamps();
-            
+
             $table->index(['equity_id', 'date']);
             $table->unique(['equity_id', 'date']);
         });

@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -25,7 +28,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'balance'
+        'balance',
     ];
 
     /**
@@ -54,9 +57,9 @@ class User extends Authenticatable
     public function equities(): BelongsToMany
     {
         return $this->belongsToMany(Equity::class, 'equity_user')
-                    ->withPivot('quantity', 'buy_price')
-                    ->with(['charts' => fn($query) => $query->latest('date')->limit(2)])
-                    ->orderBy('symbol');
+            ->withPivot('quantity', 'buy_price')
+            ->with(['charts' => fn ($query) => $query->latest('date')->limit(2)])
+            ->orderBy('symbol');
     }
 
     public function transactions(): HasMany
@@ -86,7 +89,8 @@ class User extends Authenticatable
 
     public function getEquityQuantityAttribute(int $equityId): int
     {
-        $equity =  $this->equities->where('id', $equityId)->first();
+        $equity = $this->equities->where('id', $equityId)->first();
+
         return $equity->pivot->quantity;
     }
 }

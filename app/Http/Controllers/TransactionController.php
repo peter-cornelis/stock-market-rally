@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
@@ -11,9 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
-    public function __construct(private TransactionService $transactionService)
-    {
-    }
+    public function __construct(private readonly TransactionService $transactionService) {}
 
     public function index(User $user)
     {
@@ -34,7 +34,7 @@ class TransactionController extends Controller
     public function store(Equity $equity, StoreTransactionRequest $request)
     {
         $attributes = $request->validated();
-        
+
         $quantity = (int) $attributes['quantity'];
         $type = (string) $attributes['type'];
         $user = Auth::user();
@@ -43,5 +43,5 @@ class TransactionController extends Controller
             ->addTransaction($user, $equity, $quantity, $type);
 
         return back()->with($result['type'], $result['msg']);
-    } 
+    }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('dividendYieldPercentage', 5, 2);
             $table->decimal('currentRatio', 5, 2);
             $table->decimal('revenuePerShare', 5, 2);
-            
+
             $table->timestamps();
         });
     }

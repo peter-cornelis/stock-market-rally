@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
@@ -7,8 +9,9 @@ use Illuminate\Validation\ValidationException;
 
 class FmpService
 {
-    private string $apiKey;
-    private string $baseUrl;
+    private readonly string $apiKey;
+
+    private readonly string $baseUrl;
 
     public function __construct()
     {
@@ -20,12 +23,12 @@ class FmpService
     {
         $response = Http::get("{$this->baseUrl}/profile", [
             'symbol' => $symbol,
-            'apikey' => $this->apiKey
+            'apikey' => $this->apiKey,
         ]);
-        
-        if(!$response->successful() || empty($response->json())) {
+
+        if (! $response->successful() || empty($response->json())) {
             throw ValidationException::withMessages([
-                'symbol' => "Geen bedrijfsgegevens voor {$symbol} beschikbaar of API fout."
+                'symbol' => "Geen bedrijfsgegevens voor {$symbol} beschikbaar of API fout.",
             ]);
         }
 
@@ -36,12 +39,12 @@ class FmpService
     {
         $response = Http::get("{$this->baseUrl}/ratios", [
             'symbol' => $symbol,
-            'apikey' => $this->apiKey
+            'apikey' => $this->apiKey,
         ]);
 
-        if(!$response->successful() || empty($response->json())) {
+        if (! $response->successful() || empty($response->json())) {
             throw ValidationException::withMessages([
-                'symbol' => "Geen financiele ratios voor {$symbol} beschikbaar of API fout."
+                'symbol' => "Geen financiele ratios voor {$symbol} beschikbaar of API fout.",
             ]);
         }
 
@@ -54,12 +57,12 @@ class FmpService
             'symbol' => $symbol,
             'from' => $from ?? now()->subYears(5)->format('Y-m-d'),
             'to' => now()->format('Y-m-d'),
-            'apikey' => $this->apiKey
+            'apikey' => $this->apiKey,
         ]);
 
-        if(!$response->successful() || empty($response->json())) {
+        if (! $response->successful() || empty($response->json())) {
             throw ValidationException::withMessages([
-                'symbol' => "Geen historische data voor {$symbol} beschikbaar of API fout."
+                'symbol' => "Geen historische data voor {$symbol} beschikbaar of API fout.",
             ]);
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRegisteredUserRequest;
@@ -12,7 +14,7 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register');
     }
-    
+
     public function store(StoreRegisteredUserRequest $request)
     {
         $attributes = $request->validated();

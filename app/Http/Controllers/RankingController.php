@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchRankingRequest;
@@ -7,9 +9,7 @@ use App\Services\RankingService;
 
 class RankingController extends Controller
 {
-    public function __construct(private RankingService $rankingService)
-    {
-    }
+    public function __construct(private readonly RankingService $rankingService) {}
 
     public function index()
     {
@@ -23,13 +23,13 @@ class RankingController extends Controller
 
     public function search(SearchRankingRequest $request)
     {
-        $attributes =$request->validated();
+        $attributes = $request->validated();
 
         $rankings = $this->rankingService
             ->getRankingListByUsername($attributes['searchQuery'])
             ->paginate(10)
             ->onEachSide(1);
-        
+
         return view('ranking', ['rankings' => $rankings]);
     }
 }

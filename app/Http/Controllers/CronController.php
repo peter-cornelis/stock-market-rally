@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Jobs\UpdateAllEquityChartsJob;
@@ -15,12 +17,14 @@ class CronController extends Controller
     public function updateCharts(): string
     {
         UpdateAllEquityChartsJob::dispatchSync();
+
         return 'OK';
     }
 
     public function updateRanking(): string
     {
         UpdateRankingListJob::dispatchSync();
+
         return 'OK';
     }
 }

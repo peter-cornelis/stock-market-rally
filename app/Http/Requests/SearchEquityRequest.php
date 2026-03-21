@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SearchEquityRequest extends FormRequest
@@ -17,12 +20,12 @@ class SearchEquityRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'searchQuery' => ['required', 'string', 'min:2']
+            'searchQuery' => ['required', 'string', 'min:2'],
         ];
     }
 
@@ -31,7 +34,7 @@ class SearchEquityRequest extends FormRequest
         return [
             'searchQuery.required' => 'Symbool vereist.',
             'searchQuery.string' => 'Onbekende invoer',
-            'searchQuery.min' => 'Minstens 2 karakters vereist.'
+            'searchQuery.min' => 'Minstens 2 karakters vereist.',
         ];
     }
 }

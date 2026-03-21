@@ -22,21 +22,21 @@ class DatabaseSeeder extends Seeder
             'username' => env('ADMIN_NAME'),
             'email' => env('ADMIN_EMAIL'),
             'password' => env('ADMIN_PASSWORD'),
-            'admin' => true
+            'admin' => true,
         ]);
 
         User::factory()->count(50)->create();
 
         $symbols = [
-            'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL', 
+            'NVDA', 'AMD', 'GOOGL', 'MSFT', 'AAPL',
             'AMZN', 'META', 'SHOP', 'PLTR', 'INTC',
-            'PYPL', 'PINS', 'NFLX', 'ADBE', 'DIS'
+            'PYPL', 'PINS', 'NFLX', 'ADBE', 'DIS',
         ];
-        
+
         $this->callWith(EquitySeeder::class, ['symbols' => $symbols]);
-        
+
         $this->callWith(TransactionSeeder::class, ['transactionsCount' => 400]);
-        
-        (new RankingService())->updateRankingList();
+
+        (new RankingService)->updateRankingList();
     }
 }

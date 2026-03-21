@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Company;
@@ -9,20 +11,13 @@ use App\Models\FinancialRatio;
 
 class ObjectBuilder
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-    }
-
     public function exchange(array $exchangeData): Exchange
     {
         return Exchange::firstOrCreate(
             ['code' => $exchangeData['exchange']],
             [
                 'name' => $exchangeData['exchangeFullName'],
-                'currency' => $exchangeData['currency']
+                'currency' => $exchangeData['currency'],
             ]
         );
     }
@@ -33,14 +28,14 @@ class ObjectBuilder
             ['name' => $companyData['companyName']],
             [
                 'website' => $companyData['website'],
-                'sector' => $companyData['sector'] ,
+                'sector' => $companyData['sector'],
                 'industry' => $companyData['industry'],
                 'country' => $companyData['country'],
                 'image' => $companyData['image'],
             ]
         );
 
-        if (!$company->exchanges->contains($exchangeId)) {
+        if (! $company->exchanges->contains($exchangeId)) {
             $company->exchanges()->attach($exchangeId);
         }
 
@@ -55,12 +50,12 @@ class ObjectBuilder
                 'isin' => $equityData['isin'],
                 'company_id' => $companyId,
                 'exchange_id' => $exchangeId,
-                'lastDividend' => $equityData['lastDividend'] ?? 0
+                'lastDividend' => $equityData['lastDividend'] ?? 0,
             ]
         );
     }
 
-    public function financialRatio(int $equityId, string $beta, array $FinancialRatios)
+    public function financialRatio(int $equityId, string $beta, array $FinancialRatios): void
     {
         FinancialRatio::updateOrCreate(
             ['equity_id' => $equityId],
@@ -71,7 +66,7 @@ class ObjectBuilder
                 'priceToBookRatio' => $FinancialRatios['priceToBookRatio'],
                 'dividendYieldPercentage' => $FinancialRatios['dividendYieldPercentage'],
                 'currentRatio' => $FinancialRatios['currentRatio'],
-                'revenuePerShare' => $FinancialRatios['revenuePerShare']
+                'revenuePerShare' => $FinancialRatios['revenuePerShare'],
             ]
         );
     }
@@ -83,7 +78,7 @@ class ObjectBuilder
                 ['date' => $item['date']],
                 [
                     'price' => $item['price'],
-                    'volume' => $item['volume']
+                    'volume' => $item['volume'],
                 ]
             );
         }

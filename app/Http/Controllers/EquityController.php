@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchEquityRequest;
@@ -7,21 +9,19 @@ use App\Http\Requests\StoreEquityRequest;
 use App\Models\Equity;
 use App\Services\ChartService;
 use App\Services\EquityService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EquityController extends Controller
 {
-    public function __construct(private ChartService $chartService, private EquityService $equityService)
-    {
-    }
+    public function __construct(private readonly ChartService $chartService, private readonly EquityService $equityService) {}
 
     public function index()
     {
         $equities = $this->equityService
             ->getAll()
             ->paginate(5);
-        
+
         return view('equities.index', ['equities' => $equities]);
     }
 
@@ -40,24 +40,28 @@ class EquityController extends Controller
     public function search(SearchEquityRequest $request)
     {
         $attributes = $request->validated();
-        
+
         $equities = $this->equityService
             ->getByCompanyName($attributes['searchQuery'])
             ->paginate(5);
-        
+
         return view('equities.index', ['equities' => $equities]);
     }
 
     public function create()
     {
-        if (!Auth::user()->admin) abort(403);
-        
+        if (! Auth::user()->admin) {
+            abort(403);
+        }
+
         return view('equities.create');
     }
 
     public function store(StoreEquityRequest $request)
     {
-        if (!Auth::user()->admin) abort(403);
+        if (! Auth::user()->admin) {
+            abort(403);
+        }
 
         $attributes = $request->validated();
 
@@ -67,5 +71,3 @@ class EquityController extends Controller
         return back()->with($result['type'], $result['msg']);
     }
 }
-
-

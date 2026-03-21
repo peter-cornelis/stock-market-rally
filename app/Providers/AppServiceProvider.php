@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
@@ -13,10 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //Optimize Vite asset loading strategy.
+        // Optimize Vite asset loading strategy.
         Vite::usePrefetchStrategy('aggressive');
     }
-
 
     /**
      * Bootstrap any application services.

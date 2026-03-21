@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use Illuminate\Support\Collection;
@@ -18,12 +20,8 @@ class ChartService
     {
         $dateLimit = now()->subYears(5);
 
-        return Cache::remember("chart.{$equity->id}", now()->addHours(12), function() use ($equity, $dateLimit) {
-            $chartData = $equity->charts()->where('date', '>=', $dateLimit)
-                ->orderBy('date', 'asc')
-                ->get();
-
-            return $chartData;
-        });
+        return Cache::remember("chart.{$equity->id}", now()->addHours(12), fn () => $equity->charts()->where('date', '>=', $dateLimit)
+            ->orderBy('date', 'asc')
+            ->get());
     }
 }

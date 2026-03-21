@@ -59,9 +59,9 @@
                     @if (is_array($element))
                         @foreach ($element as $page => $url)
                             @if ($page == $paginator->currentPage())
-                                <li class="min-w-8 text-center text-black/90 px-2 py-1.5 border-r border-black/5" aria-current="page"><span class="page-link">{{ $page }}</span></li>
+                                <li class="min-w-8 text-center text-black/40 px-2 py-1.5 border-r border-black/5" aria-current="page"><span class="page-link">{{ $page }}</span></li>
                             @else
-                                <li class="min-w-8 text-center hover:bg-black/2 hover:text-black/90 active:text-black/70 px-2 py-1.5 border-r border-black/5 transition ease-in-out duration-200"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                <li class="flex min-w-8 min-h-8 text-center items-center hover:bg-black/2 hover:text-black/90 active:text-black/70 border-r border-black/5 transition ease-in-out duration-200"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
                             @endif
                         @endforeach
                     @endif
@@ -79,6 +79,6 @@
                 @endif
             </ul>
         </div>
-        
+
     </nav>
 @endif

@@ -20,7 +20,7 @@
             <x-form-submit value="Aanmelden" />
             <p class="text-sm text-right mt-4">
                 Nog geen account?
-                <a href="/register" class="text-blueFin hover:underline italic">Registreer</a> 
+                <a href="/register" class="text-blueFin hover:underline italic">Registreer</a>
                 je hier.
             </p>
         </form>

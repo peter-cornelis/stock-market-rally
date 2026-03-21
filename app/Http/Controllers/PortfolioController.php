@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -7,10 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PortfolioController extends Controller
 {
-    public function __construct()
-    {
-    }
-
     public function index()
     {
         $user = Auth::user();

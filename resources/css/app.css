@@ -17,3 +17,11 @@
     --breakpoint-xs: 375px;
     --breakpoint-2sm: 450px;
 }
+
+.page-link {
+    @apply font-medium;
+}
+
+a.page-link {
+    @apply inline-block w-full h-full;
+}

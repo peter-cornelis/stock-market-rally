@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -56,15 +58,15 @@ class Equity extends Model
             ->sortByDesc('date')
             ->take(2)
             ->values();
-        
-        return count($latest) == 2 ? round($latest[0]->price - $latest[1]->price, 2) : 0;
+
+        return count($latest) === 2 ? round($latest[0]->price - $latest[1]->price, 2) : 0;
     }
 
     public function getDailyChangePercentageAttribute(): float
     {
         $price = $this->current_price;
         $change = $this->daily_change;
-        
+
         return round(($change / $price) * 100, 2);
     }
 
@@ -97,7 +99,7 @@ class Equity extends Model
     {
         $value = $this->starting_value;
         $change = $this->value_change;
-        
+
         return round(($change / $value) * 100, 2);
     }
 }

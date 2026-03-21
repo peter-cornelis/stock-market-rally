@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -13,11 +15,11 @@ class Transaction extends Model
         'price',
         'fee',
         'total',
-        'type'
+        'type',
     ];
 
     protected $casts = [
-        'date'  => 'datetime'
+        'date' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -25,7 +27,7 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function equity(): BelongsTo 
+    public function equity(): BelongsTo
     {
         return $this->belongsTo(Equity::class);
     }

@@ -11,10 +11,10 @@ class EquitySeeder extends Seeder
      * Run the database seeds.
      */
     public function run(array $symbols): void
-    {       
+    {
         $eqService = app(EquityService::class);
-        
-        foreach($symbols as $symbol) {
+
+        foreach ($symbols as $symbol) {
             $eqService->addEquity($symbol);
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Equity;
@@ -10,27 +12,27 @@ use Illuminate\Validation\ValidationException;
 
 class TransactionService
 {
-    public function addTransaction(User $user, Equity $equity, int $quantity, string $type, ?string $executedAt = null ): array
+    public function addTransaction(User $user, Equity $equity, int $quantity, string $type, ?string $executedAt = null): array
     {
-        return DB::transaction(function() use ($user, $equity, $quantity, $type, $executedAt) {
+        return DB::transaction(function () use ($user, $equity, $quantity, $type, $executedAt): array {
             $subTotal = (float) $quantity * $equity->current_price;
             $fee = round(max($subTotal * 0.0025, 2.5), 2);
-            $total = $type === "buy" ? $subTotal + $fee : $subTotal - $fee;
+            $total = $type === 'buy' ? $subTotal + $fee : $subTotal - $fee;
 
-            if($type === "buy" && $user->balance < $total) {
+            if ($type === 'buy' && $user->balance < $total) {
                 throw ValidationException::withMessages([
-                    'quantity' => 'Saldo ontoereikend.'
+                    'quantity' => 'Saldo ontoereikend.',
                 ]);
             }
 
-            if($type === "sell") {
+            if ($type === 'sell') {
                 $userEquity = $user->equities()
                     ->where('equity_id', $equity->id)
                     ->first();
-                    
-                if(!$userEquity || $userEquity->pivot->quantity < $quantity) {
+
+                if (! $userEquity || $userEquity->pivot->quantity < $quantity) {
                     throw ValidationException::withMessages([
-                        'quantity' => 'Onvoldoende aandelen in bezit.'
+                        'quantity' => 'Onvoldoende aandelen in bezit.',
                     ]);
                 }
             }
@@ -48,25 +50,26 @@ class TransactionService
                 'created_at' => $executedAt ?? now(),
             ]);
 
-            return ['type' => 'status', 'msg' => ($type == 'buy' ? "Aankoop" : "Verkoop") . " succesvol uitgevoerd."];
+            return ['type' => 'status', 'msg' => ($type === 'buy' ? 'Aankoop' : 'Verkoop').' succesvol uitgevoerd.'];
         });
     }
 
     private function updateBalance(User $user, string $transactionType, float $transactionTotal): void
     {
-        $user->balance = $transactionType == "buy" ? $user->balance - $transactionTotal : $user->balance + $transactionTotal;
+        $user->balance = $transactionType === 'buy' ? $user->balance - $transactionTotal : $user->balance + $transactionTotal;
         $user->save();
     }
 
     private function updatePortfolio(User $user, int $equityId, string $transactionType, int $transactionQuantity, float $transactionTotal): void
     {
         $equity = $user->equities()->where('equity_id', $equityId)->first();
-        if($equity) {
-            $quantity = ($transactionType == 'buy' ? $equity->pivot->quantity + $transactionQuantity : $equity->pivot->quantity - $transactionQuantity);
+        if ($equity) {
+            $quantity = ($transactionType === 'buy' ? $equity->pivot->quantity + $transactionQuantity : $equity->pivot->quantity - $transactionQuantity);
 
-            $avgPrice = (float) ($transactionType == 'buy' ? (($equity->pivot->quantity * $equity->pivot->buy_price) + $transactionTotal) / $quantity : $equity->pivot->buy_price);
+            $avgPrice = (float) ($transactionType === 'buy' ? (($equity->pivot->quantity * $equity->pivot->buy_price) + $transactionTotal) / $quantity : $equity->pivot->buy_price);
             if ($quantity == 0) {
                 $user->equities()->detach($equityId);
+
                 return;
             }
         }
@@ -75,8 +78,8 @@ class TransactionService
             $equityId => [
                 'quantity' => $quantity ?? $transactionQuantity,
                 'buy_price' => $avgPrice ?? ($transactionTotal / $transactionQuantity),
-            ]
-        ]);    
+            ],
+        ]);
     }
 
     public function getUserTransactionList(User $user): Collection
@@ -87,13 +90,13 @@ class TransactionService
             ->leftJoin('exchanges', 'equities.exchange_id', '=', 'exchanges.id')
             ->select(
                 'transactions.created_at as date',
-                'transactions.quantity', 
-                'transactions.price', 
-                'transactions.total', 
-                'transactions.type', 
-                'companies.name as company_name', 
+                'transactions.quantity',
+                'transactions.price',
+                'transactions.total',
+                'transactions.type',
+                'companies.name as company_name',
                 'exchanges.currency'
-                )
+            )
             ->orderBy('transactions.created_at', 'desc')
             ->get();
     }

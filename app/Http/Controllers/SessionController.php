@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
@@ -16,17 +18,17 @@ class SessionController extends Controller
     {
         $attributes = request()->validate([
             'email' => ['required'],
-            'password' => ['required']
+            'password' => ['required'],
         ]);
 
-        if(! Auth::attempt($attributes)) {
+        if (! Auth::attempt($attributes)) {
             throw ValidationException::withMessages([
-                'email' => 'Incorrect e-mailadres of wachtwoord.'
+                'email' => 'Incorrect e-mailadres of wachtwoord.',
             ]);
         }
-        
+
         request()->session()->regenerate();
-        
+
         $firstName = Auth::user()->first_name;
 
         return redirect('/portfolio')->with('status', "Welkom $firstName");
@@ -41,5 +43,3 @@ class SessionController extends Controller
         return redirect('/');
     }
 }
-
-

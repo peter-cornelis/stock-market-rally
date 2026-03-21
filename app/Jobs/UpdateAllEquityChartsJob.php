@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Services\EquityService;
+use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Cache;
@@ -13,13 +16,6 @@ class UpdateAllEquityChartsJob implements ShouldQueue
     use Queueable;
 
     /**
-     * Create a new job instance.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Execute the job.
      */
     public function handle(EquityService $equityService): void
@@ -28,9 +24,9 @@ class UpdateAllEquityChartsJob implements ShouldQueue
             $equityService->updateAllEquityCharts();
             Cache::flush();
             Log::info('UpdateEquityChartsJob succesfully executed');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('UpdateEquityChartsJob failed', [
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ]);
         }
     }
